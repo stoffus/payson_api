@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'require_all'
   s.add_dependency 'rest-client'
-  s.add_dependency 'activesupport', ['>= 3.0.0']
 
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"

@@ -1,5 +1,3 @@
-require 'active_support/configurable'
-
 module PaysonAPI
 
   # Some hard constants
@@ -30,9 +28,7 @@ module PaysonAPI
   end
 
   class Configuration
-    include ActiveSupport::Configurable
-    config_accessor :api_user
-    config_accessor :api_key
+    attr_accessor :api_user, :api_key
   end
 
   configure do |config|

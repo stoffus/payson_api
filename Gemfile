@@ -4,7 +4,6 @@ gemspec
 
 gem 'require_all'
 gem 'rest-client'
-gem 'activesupport', '>= 3.0.0'
 
 group :test, :development do
   gem 'guard-test'
