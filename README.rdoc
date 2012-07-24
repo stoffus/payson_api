@@ -7,8 +7,6 @@ A simple utility to handle requests against the Payson payment gateway.
 
 * Ruby 1.9.3
 
-* Rails 3.X
-
 
 == Install
 
