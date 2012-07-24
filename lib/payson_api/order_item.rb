@@ -26,7 +26,7 @@ class OrderItem
     end
   end
 
-  def self.parse_receivers(data)
+  def self.parse_order_items(data)
     i = 0
     [].tap do |order_items|
       while data[FORMAT_STRING % [i, 'description']]
