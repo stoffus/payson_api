@@ -1,0 +1,86 @@
+= Payson API
+
+A simple utility to handle requests against the Payson payment gateway.
+
+
+== Supported versions
+
+* Ruby 1.9.3
+
+* Rails 3.X
+
+
+== Install
+
+Put this line in your Gemfile:
+  gem 'payson_api'
+
+Then bundle:
+  % bundle
+
+
+== Usage
+
+=== General configuration options
+
+You can configure the following default values by overriding these values using the <tt>PaysonAPI.configure</tt> method.
+
+  PaysonAPI.configure do |config|
+    config.api_user = 'XXXX'
+    config.api_key = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
+  end
+
+=== Initiating a payment
+
+  return_url = 'http://localhost/payson/success'
+  cancel_url = 'http://localhost/payson/cancel'
+  ipn_url = 'http://localhost/payson/ipn'
+  memo = 'Sample order description'
+
+  receivers = []
+  receivers << PaysonAPI::Receiver.new(
+    email = 'me@mydomain.com',
+    amount = 100
+  )
+
+  sender = PaysonAPI::Sender.new(
+    email = 'mycustomer@mydomain.com,
+    first_name = 'My',
+    last_name = 'Customer'
+  )
+
+  order_items = []
+  order_items << PaysonAPI::OrderItem.new(
+    description = 'Order item description',
+    unit_price = 100,
+    quantity = 1,
+    tax = 0,
+    sku = 'MY-ITEM-1'
+  )
+
+  pay_data = PaysonAPI::PayData.new(
+    return_url,
+    cancel_url,
+    ipn_url,
+    memo,
+    sender,
+    receivers
+  )
+  pay_data.order_items = order_items
+
+  response = PaysonAPI::Client.pay(pay_data)
+
+  if response.success?
+    # Redirect to response.forward_url
+  else
+    puts response.errors
+  end
+
+== Questions, Feedback
+
+Feel free to message me on Github (stoffus).
+
+
+== Copyright
+
+Copyright (c) 2012 Christopher Svensson.

@@ -4,3 +4,4 @@
 Gemfile.lock
 pkg/*.gem
 .rvmrc
+doc
