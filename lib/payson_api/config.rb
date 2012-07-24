@@ -1,10 +1,12 @@
 require 'active_support/configurable'
-require 'logger'
 
 module PaysonAPI
+
   # Some hard constants
+
   PAYSON_WWW_HOST = "https://www.payson.se"
   PAYSON_WWW_PAY_FORWARD_URL = "/paysecure/?token=%s"
+
   PAYSON_API_ENDPOINT = "https://api.payson.se"
   PAYSON_API_VERSION = "1.0"
   PAYSON_API_PAY_ACTION = "Pay"
@@ -31,13 +33,11 @@ module PaysonAPI
     include ActiveSupport::Configurable
     config_accessor :api_user
     config_accessor :api_key
-    config_accessor :logger
   end
 
   configure do |config|
     config.api_user = 'XXXX'
     config.api_key = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
-    config.logger = Logger.new(STDOUT)
   end
 
 end
