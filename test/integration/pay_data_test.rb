@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 require 'test/unit'
-require 'test/integration_test_helper'
+require 'test/test_helper'
 require 'payson_api'
 
 class PayDataTest < Test::Unit::TestCase
-  include IntegrationTestHelper
+  include TestHelper
   ORDER = YAML.load_file('test/fixtures/order.yml')
 
   def test_generated_hash_from_pay_data
