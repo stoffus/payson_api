@@ -18,4 +18,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'httpclient'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'guard-test'
 end
