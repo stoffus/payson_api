@@ -2,7 +2,7 @@ source :rubygems
 
 gemspec
 
-gem 'rest-client'
+gem 'httpclient'
 
 group :test, :development do
   gem 'guard-test'
