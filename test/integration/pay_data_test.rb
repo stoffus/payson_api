@@ -6,16 +6,17 @@ require 'payson_api'
 
 class PayDataTest < Test::Unit::TestCase
   include IntegrationTestHelper
+  ORDER = YAML.load_file('test/fixtures/order.yml')
 
   def test_generated_hash_from_pay_data
     sender = PaysonAPI::Sender.new(
-      CONFIG[:sender][:email],
-      CONFIG[:sender][:first_name],
-      CONFIG[:sender][:last_name]
+      ORDER[:sender][:email],
+      ORDER[:sender][:first_name],
+      ORDER[:sender][:last_name]
     )
 
     receivers = []
-    CONFIG[:receivers].each do |receiver|
+    ORDER[:receivers].each do |receiver|
       receivers << PaysonAPI::Receiver.new(
         receiver[:email],
         receiver[:amount]
@@ -23,16 +24,16 @@ class PayDataTest < Test::Unit::TestCase
     end
 
     pay_data = PaysonAPI::PayData.new(
-      CONFIG[:return_url],
-      CONFIG[:cancel_url],
-      CONFIG[:ipn_url],
-      CONFIG[:memo],
+      ORDER[:return_url],
+      ORDER[:cancel_url],
+      ORDER[:ipn_url],
+      ORDER[:memo],
       sender,
       receivers
     )
 
     order_items = []
-    CONFIG[:order_items].each do |order_item|
+    ORDER[:order_items].each do |order_item|
       order_items << PaysonAPI::OrderItem.new(
         order_item[:description],
         order_item[:unit_price],
@@ -45,10 +46,10 @@ class PayDataTest < Test::Unit::TestCase
     pay_data.order_items = order_items
     pay_data_hash = pay_data.to_hash
 
-    assert_equal CONFIG[:return_url], pay_data_hash['returnUrl']
-    assert_equal CONFIG[:cancel_url], pay_data_hash['cancelUrl']
-    assert_equal CONFIG[:ipn_url], pay_data_hash['ipnNotificationUrl']
-    assert_equal CONFIG[:memo], pay_data_hash['memo']
+    assert_equal ORDER[:return_url], pay_data_hash['returnUrl']
+    assert_equal ORDER[:cancel_url], pay_data_hash['cancelUrl']
+    assert_equal ORDER[:ipn_url], pay_data_hash['ipnNotificationUrl']
+    assert_equal ORDER[:memo], pay_data_hash['memo']
 
     # Ensure expected format of receiver list
     receiver_format = PaysonAPI::Receiver::FORMAT_STRING

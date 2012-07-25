@@ -1,5 +1,3 @@
-:api_user_id: XXXX
-:api_password: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 :return_url: http://localhost/return
 :cancel_url: http://localhost/cancel
 :ipn_url: 
@@ -22,3 +20,9 @@
     :quantity: 3
     :tax: 0
     :sku: 'MY-ITEM-1'
+  -
+    :description: 'Another order item description'
+    :unit_price: 242
+    :quantity: 2
+    :tax: 10
+    :sku: 'MY-ITEM-2'
