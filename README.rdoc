@@ -84,6 +84,10 @@ Implement the following requests:
 * Validate - Validate an IPN (Instant Payment Notification).
 
 
+
+== Build Status {<img src="https://secure.travis-ci.org/stoffus/payson_api.png"/>}[http://travis-ci.org/stoffus/payson_api]
+
+
 == Questions, Feedback
 
 Feel free to message me on Github (stoffus).
