@@ -1,6 +1,6 @@
 = Payson API
 
-A simple utility to handle requests against the Payson payment gateway.
+A simple utility to handle requests against the Payson payment gateway API.
 
 
 == Supported versions
@@ -21,7 +21,7 @@ Then bundle:
 
 === General configuration options
 
-You can configure the following default values by overriding these values using the <tt>PaysonAPI.configure</tt> method.
+You can configure the following default values by overriding these values using the <tt>PaysonAPI.configure</tt> method:
 
   PaysonAPI.configure do |config|
     config.api_user_id = 'XXXX'
@@ -73,6 +73,16 @@ You can configure the following default values by overriding these values using 
   else
     puts response.errors
   end
+
+
+== Todo
+
+Implement the following requests:
+
+* PaymentDetails - Get details on a payment.
+* PaymentUpdate - Update a payment.
+* Validate - Validate an IPN (Instant Payment Notification).
+
 
 == Questions, Feedback
 
