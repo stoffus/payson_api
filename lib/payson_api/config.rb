@@ -1,6 +1,5 @@
 module PaysonAPI
-
-  # Some hard constants
+  extend self
 
   PAYSON_WWW_HOST = "https://www.payson.se"
   PAYSON_WWW_PAY_FORWARD_URL = "/paysecure/?token=%s"
@@ -19,21 +18,21 @@ module PaysonAPI
   # PaysonAPI.configure do |config|
   #   config.api_user = 12345
   # end
-  def self.configure(&block)
-    yield @config ||= PaysonAPI::Configuration.new
+  def configure(&block)
+    yield @config ||= Configuration.new
   end
 
-  def self.config
+  def config
     @config
   end
 
   class Configuration
-    attr_accessor :api_user, :api_key
+    attr_accessor :api_user_id, :api_password
   end
 
   configure do |config|
-    config.api_user = 'XXXX'
-    config.api_key = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
+    config.api_user_id = 'XXXX'
+    config.api_password = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
   end
 
 end
