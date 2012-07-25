@@ -16,7 +16,9 @@ class PayData
     {}.tap do |hash|
       hash['returnUrl'] = @return_url
       hash['cancelUrl'] = @cancel_url
-      hash['ipnNotificationUrl'] = @ipn_url unless @ipn_url.empty?
+      if @ipn_url && !@ipn_url.empty?
+        hash['ipnNotificationUrl'] = @ipn_url
+      end
       hash['memo'] = @memo
       hash['localeCode'] = LOCALES[@locale] if @locale
       hash['currencyCode'] = CURRENCIES[@currency] if @currency
