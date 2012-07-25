@@ -1,0 +1,24 @@
+:api_user_id: XXXX
+:api_password: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+:return_url: http://localhost/return
+:cancel_url: http://localhost/cancel
+:ipn_url: 
+:memo: Test
+:receivers:
+  -
+    :email: mytest@domain.com
+    :amount: 123
+  -
+    :email: mytest2@domain2.com
+    :amount: 234
+:sender:
+  :email: test_person@anotherdomain.com
+  :first_name: Test
+  :last_name: Person
+:order_items:
+  -
+    :description: 'My order item description'
+    :unit_price: 1103
+    :quantity: 3
+    :tax: 0
+    :sku: 'MY-ITEM-1'
