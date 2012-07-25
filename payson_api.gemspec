@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/stoffus/payson_api"
   s.summary     = %q{Client for Payson API}
   s.description = %q{Client that enables access to the Payson payment gateway API.}
+  s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
