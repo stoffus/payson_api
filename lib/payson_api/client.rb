@@ -1,4 +1,4 @@
-require 'httpclient'
+require 'net/https'
 
 module PaysonAPI
   class Client
@@ -16,7 +16,22 @@ module PaysonAPI
         'PAYSON-SECURITY-PASSWORD' => PaysonAPI.config.api_password,
         'Content-Type' => 'application/x-www-form-urlencoded'
       }
-      HTTPClient.post(url, :body => data, :header => headers)
+      uri = URI.parse(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.use_ssl = uri.scheme == 'https'
+      req = Net::HTTP::Post.new(uri.path)
+      req.body = hash_to_params(data)
+      headers.each do |name, value|
+        req[name] = value
+      end
+      http.request(req)
+    end
+
+    def self.hash_to_params(hash)
+      out = ""
+      hash.each { |k, v| out << "#{k}=#{v}&" }
+      out.chop
     end
   end
 end
