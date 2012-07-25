@@ -5,7 +5,7 @@ A simple utility to handle requests against the Payson payment gateway.
 
 == Supported versions
 
-* Ruby 1.9.3
+* Ruby 1.8.7, 1.9.2, 1.9.3
 
 
 == Install
@@ -24,8 +24,8 @@ Then bundle:
 You can configure the following default values by overriding these values using the <tt>PaysonAPI.configure</tt> method.
 
   PaysonAPI.configure do |config|
-    config.api_user = 'XXXX'
-    config.api_key = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
+    config.api_user_id = 'XXXX'
+    config.api_password = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
   end
 
 === Initiating a payment
