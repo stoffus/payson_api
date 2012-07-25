@@ -2,7 +2,6 @@ source :rubygems
 
 gemspec
 
-gem 'require_all'
 gem 'rest-client'
 
 group :test, :development do
