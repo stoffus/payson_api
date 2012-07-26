@@ -56,7 +56,7 @@ You can configure the following default values by overriding these values using 
     sku = 'MY-ITEM-1'
   )
 
-  payment = PaysonAPI::Payment.new(
+  payment = PaysonAPI::Request::Payment.new(
     return_url,
     cancel_url,
     ipn_url,
@@ -79,7 +79,7 @@ You can configure the following default values by overriding these values using 
 
   token = 'token-received-from-payment-request'
 
-  payment_details = PaysonAPI::PaymentDetails.new(token)
+  payment_details = PaysonAPI::Request::PaymentDetails.new(token)
 
   response = PaysonAPI::Client.get_payment_details(payment_details)
 
