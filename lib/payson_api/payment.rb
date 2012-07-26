@@ -1,5 +1,5 @@
 module PaysonAPI
-class PayData
+class Payment
   attr_accessor :return_url, :cancel_url, :ipn_url, :memo, :sender, :receivers,
     :locale, :currency, :tracking_id, :invoice_fee, :order_items
 
@@ -28,10 +28,6 @@ class PayData
       hash['invoiceFee'] = @invoice_fee if @invoice_fee
       hash['trackingId'] = @tracking_id if @tracking_id
     end
-  end
-
-  def to_s
-    to_hash.to_s
   end
 end
 end
