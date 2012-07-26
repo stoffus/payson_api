@@ -26,7 +26,7 @@ module TestHelper
       )
     end
 
-    @payment = PaysonAPI::Payment.new(
+    @payment = PaysonAPI::Request::Payment.new(
       PAYMENT_DATA[:return_url],
       PAYMENT_DATA[:cancel_url],
       PAYMENT_DATA[:ipn_url],

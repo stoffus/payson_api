@@ -15,7 +15,7 @@ class PaymentDetailsTest < Test::Unit::TestCase
       return
     end
 
-    payment_details = PaysonAPI::PaymentDetails.new(token)
+    payment_details = PaysonAPI::Request::PaymentDetails.new(token)
     response = PaysonAPI::Client.get_payment_details(payment_details)
   end
 end
