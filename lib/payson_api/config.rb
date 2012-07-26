@@ -14,10 +14,6 @@ module PaysonAPI
   LOCALES = %w[SV FI EN]
   CURRENCIES = %w[SEK EUR]
 
-  # Configures global settings for Payson
-  # PaysonAPI.configure do |config|
-  #   config.api_user = 12345
-  # end
   def configure(&block)
     yield @config ||= Configuration.new
   end
@@ -34,5 +30,4 @@ module PaysonAPI
     config.api_user_id = 'XXXX'
     config.api_password = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
   end
-
 end

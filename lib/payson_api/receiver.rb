@@ -20,13 +20,13 @@ class Receiver
     end
   end
 
-  def self.parse_receivers(data)
-    i = 0
+  def self.parse(data)
     [].tap do |receivers|
+      i = 0
       while data[FORMAT_STRING % [i, 'email']]
         email = data[FORMAT_STRING % [i, 'email']]
         amount = data[FORMAT_STRING % [i, 'amount']]
-        receivers << Receiver.new(email, amount)
+        receivers << self.new(email, amount)
         i += 1
       end
     end
