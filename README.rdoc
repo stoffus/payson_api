@@ -42,7 +42,7 @@ You can configure the following default values by overriding these values using 
   )
 
   sender = PaysonAPI::Sender.new(
-    email = 'mycustomer@mydomain.com,
+    email = 'mycustomer@mydomain.com',
     first_name = 'My',
     last_name = 'Customer'
   )
@@ -56,7 +56,7 @@ You can configure the following default values by overriding these values using 
     sku = 'MY-ITEM-1'
   )
 
-  pay_data = PaysonAPI::PayData.new(
+  payment = PaysonAPI::Payment.new(
     return_url,
     cancel_url,
     ipn_url,
@@ -64,12 +64,43 @@ You can configure the following default values by overriding these values using 
     sender,
     receivers
   )
-  pay_data.order_items = order_items
+  payment.order_items = order_items
 
-  response = PaysonAPI::Client.pay(pay_data)
+  response = PaysonAPI::Client.initiate_payment(payment)
 
   if response.success?
     # Redirect to response.forward_url
+  else
+    puts response.errors
+  end
+
+
+=== Requesting payment details
+
+  token = 'token-received-from-payment-request'
+
+  payment_details = PaysonAPI::PaymentDetails.new(token)
+
+  response = PaysonAPI::Client.get_payment_details(payment_details)
+
+  if response.success?
+    # Do stuff with response object
+  else
+    puts response.errors
+  end
+
+
+=== Updating a payment
+
+  token = 'token-received-from-payment-request'
+  action = 'CANCELORDER'
+
+  payment_update = PaysonAPI::PaymentUpdate.new(token, action)
+
+  response = PaysonAPI::Client.update_payment(payment_update)
+
+  if response.success?
+    # Do stuff with response object
   else
     puts response.errors
   end
@@ -79,8 +110,6 @@ You can configure the following default values by overriding these values using 
 
 Implement the following requests:
 
-* PaymentDetails - Get details on a payment.
-* PaymentUpdate - Update a payment.
 * Validate - Validate an IPN (Instant Payment Notification).
 
 
