@@ -1,10 +1,23 @@
-require 'payson_api/config'
-require 'payson_api/client'
-require 'payson_api/errors/payson_api_error'
-require 'payson_api/errors/remote_error'
-require 'payson_api/order_item'
-require 'payson_api/pay_data'
-require 'payson_api/receiver'
-require 'payson_api/response'
-require 'payson_api/sender'
-require 'payson_api/version'
+required_files = [
+  'config',
+  'error_codes',
+  'client',
+  'envelope',
+  'funding',
+  'order_item',
+  'payment_details',
+  'payment_update',
+  'payment',
+  'receiver',
+  'remote_error',
+  'response/payment_details',
+  'response/payment_update',
+  'response/payment',
+  'sender',
+  'shipping_address',
+  'version'
+]
+
+required_files.each do |file|
+  require "payson_api/#{file}"
+end
