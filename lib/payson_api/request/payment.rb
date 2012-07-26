@@ -1,4 +1,5 @@
 module PaysonAPI
+module Request
 class Payment
   attr_accessor :return_url, :cancel_url, :ipn_url, :memo, :sender, :receivers,
     :locale, :currency, :tracking_id, :invoice_fee, :order_items
@@ -29,5 +30,6 @@ class Payment
       hash['trackingId'] = @tracking_id if @tracking_id
     end
   end
+end
 end
 end

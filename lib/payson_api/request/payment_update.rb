@@ -1,4 +1,5 @@
 module PaysonAPI
+module Request
 class PaymentUpdate
   attr_accessor :token, :action
 
@@ -13,5 +14,6 @@ class PaymentUpdate
       hash['action'] = @action
     end
   end
+end
 end
 end

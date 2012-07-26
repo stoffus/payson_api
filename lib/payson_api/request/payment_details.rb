@@ -1,4 +1,5 @@
 module PaysonAPI
+module Request
 class PaymentDetails
   attr_accessor :token
 
@@ -9,5 +10,6 @@ class PaymentDetails
   def to_hash
     { 'token' => @token }
   end
+end
 end
 end
