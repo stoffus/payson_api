@@ -38,7 +38,10 @@ You can configure the following default values by overriding these values using 
   receivers = []
   receivers << PaysonAPI::Receiver.new(
     email = 'me@mydomain.com',
-    amount = 100
+    amount = 100,
+    first_name = 'Me',
+    last_name = 'Just me'
+    primary = true
   )
 
   sender = PaysonAPI::Sender.new(
