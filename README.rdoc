@@ -40,7 +40,7 @@ You can configure the following default values by overriding these values using 
     email = 'me@mydomain.com',
     amount = 100,
     first_name = 'Me',
-    last_name = 'Just me'
+    last_name = 'Just me',
     primary = true
   )
 
