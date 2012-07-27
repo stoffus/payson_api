@@ -4,6 +4,9 @@ class Funding
   attr_accessor :constraint
 
   def initialize(constraint)
+    if !FUNDING_CONSTRAINTS.include?(constraint)
+      raise "Unknown funding constraint: #{constraint}"
+    end
     @constraint = constraint
   end
 

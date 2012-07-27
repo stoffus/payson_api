@@ -5,6 +5,9 @@ class PaymentUpdate
 
   def initialize(token, action)
     @token = token
+    if !PAYMENT_ACTIONS.include?(action)
+      raise "Unknown payment update action: #{action}"
+    end
     @action = action
   end
 

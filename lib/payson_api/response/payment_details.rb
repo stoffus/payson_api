@@ -27,7 +27,9 @@ class PaymentDetails
       @guarantee_deadline_at = Time.at(data['guaranteeDeadlineTimestamp'])
     when 'INVOICE'
       @invoice_status = data['invoiceStatus']
-      @shipping_address = ShippingAddress.parse(data)
+      if %w[ORDERCREATED SHIPPED DONE CREDITED].include?(@invoice_status)
+        @shipping_address = ShippingAddress.parse(data)
+      end
     end
   end
 
