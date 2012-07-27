@@ -1,3 +1,5 @@
+require 'cgi'
+
 module PaysonAPI
 class OrderItem
   attr_accessor :description, :quantity, :unit_price, :sku, :tax
@@ -29,7 +31,7 @@ class OrderItem
     [].tap do |order_items|
       i = 0
       while data[FORMAT_STRING % [i, 'description']]
-        description = data[FORMAT_STRING % [i, 'description']]
+        description = CGI.unescape(data[FORMAT_STRING % [i, 'description']])
         unit_price = data[FORMAT_STRING % [i, 'unitPrice']]
         quantity = data[FORMAT_STRING % [i, 'quantity']]
         tax = data[FORMAT_STRING % [i, 'taxPercentage']]
