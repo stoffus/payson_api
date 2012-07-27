@@ -134,10 +134,7 @@ This example assumes the use of the Rails web framework.
 
 == Todo
 
-Implement the following requests:
-
-* Validate - Validate an IPN (Instant Payment Notification).
-
+Nothing at the moment. Will focus on writing more thourough test cases and look over the code all in all.
 
 
 == Build Status {<img src="https://secure.travis-ci.org/stoffus/payson_api.png"/>}[http://travis-ci.org/stoffus/payson_api]
