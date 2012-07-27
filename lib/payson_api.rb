@@ -1,6 +1,5 @@
 required_files = [
   'config',
-  'error_codes',
   'client',
   'envelope',
   'funding',
