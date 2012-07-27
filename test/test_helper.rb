@@ -22,7 +22,10 @@ module TestHelper
     PAYMENT_DATA[:receivers].each do |receiver|
       @receivers << PaysonAPI::Receiver.new(
         receiver[:email],
-        receiver[:amount]
+        receiver[:amount],
+        receiver[:first_name],
+        receiver[:last_name],
+        receiver[:primary]
       )
     end
 
@@ -46,7 +49,19 @@ module TestHelper
       )
     end
 
+    @fundings = []
+    PAYMENT_DATA[:fundings].each do |funding|
+      @fundings << PaysonAPI::Funding.new(
+        funding[:constraint]
+      )
+    end
+
     @payment.order_items = @order_items if include_order_items
+    @payment.fundings = @fundings
+    @payment.fees_payer = PAYMENT_DATA[:fees_payer]
+    @payment.locale = PAYMENT_DATA[:locale]
+    @payment.guarantee_offered = PAYMENT_DATA[:guarantee_offered]
+
     @payment_hash = @payment.to_hash
   end
 

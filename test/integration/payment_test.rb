@@ -14,15 +14,22 @@ class PaymentTest < Test::Unit::TestCase
     assert_equal PAYMENT_DATA[:cancel_url], @payment_hash['cancelUrl']
     assert_equal PAYMENT_DATA[:ipn_url], @payment_hash['ipnNotificationUrl']
     assert_equal PAYMENT_DATA[:memo], @payment_hash['memo']
+    assert_equal PAYMENT_DATA[:locale], @payment_hash['localeCode']
 
     # Ensure expected format of receiver list
     receiver_format = PaysonAPI::Receiver::FORMAT_STRING
     @receivers.each_with_index do |receiver, index|
       email = @payment_hash[receiver_format % [index, 'email']]
       amount = @payment_hash[receiver_format % [index, 'amount']]
+      first_name = @payment_hash[receiver_format % [index, 'firstName']]
+      last_name = @payment_hash[receiver_format % [index, 'lastName']]
+      primary = @payment_hash[receiver_format % [index, 'primary']]
 
       assert_equal receiver.email, email
       assert_equal receiver.amount, amount
+      assert_equal receiver.first_name, first_name
+      assert_equal receiver.last_name, last_name
+      assert_equal receiver.primary, primary
     end
 
     # Do same test for order items
@@ -39,6 +46,13 @@ class PaymentTest < Test::Unit::TestCase
       assert_equal order_item.quantity, quantity
       assert_equal order_item.tax, tax
       assert_equal order_item.sku, sku
+    end
+
+    # Ensure expected format of fundings list
+    funding_format = PaysonAPI::Funding::FORMAT_STRING
+    @fundings.each_with_index do |funding, index|
+      constraint = @payment_hash[funding_format % [index, 'constraint']]
+      assert_equal funding.constraint, constraint
     end
   end
 
