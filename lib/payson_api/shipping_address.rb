@@ -25,11 +25,11 @@ class ShippingAddress
 
   def self.parse(data)
     return unless data[FORMAT_STRING % 'name']
-    name = CGI.unescape(data[FORMAT_STRING % 'name'])
-    street_address = CGI.unescape(data[FORMAT_STRING % 'streetAddress'])
-    postal_code = CGI.unescape(data[FORMAT_STRING % 'postalCode'])
-    city = CGI.unescape(data[FORMAT_STRING % 'city'])
-    country = CGI.unescape(data[FORMAT_STRING % 'country'])
+    name = CGI.unescape(data[FORMAT_STRING % 'name'].to_s)
+    street_address = CGI.unescape(data[FORMAT_STRING % 'streetAddress'].to_s)
+    postal_code = CGI.unescape(data[FORMAT_STRING % 'postalCode'].to_s)
+    city = CGI.unescape(data[FORMAT_STRING % 'city'].to_s)
+    country = CGI.unescape(data[FORMAT_STRING % 'country'].to_s)
     self.new(name, street_address, postal_code, city, country)
   end
 end

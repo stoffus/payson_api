@@ -13,7 +13,7 @@ class Envelope
 
   def self.parse(data)
     ack = data[FORMAT_STRING % 'ack']
-    timestamp = DateTime.parse(CGI.unescape(data[FORMAT_STRING % 'timestamp']))
+    timestamp = DateTime.parse(CGI.unescape(data[FORMAT_STRING % 'timestamp'].to_s))
     correlation_id = data[FORMAT_STRING % 'correlationId']
     self.new(ack, timestamp, correlation_id)
   end

@@ -21,8 +21,8 @@ class Sender
 
   def self.parse(data)
     email = data[FORMAT_STRING % 'email']
-    first_name = CGI.unescape(data[FORMAT_STRING % 'FirstName'])
-    last_name = CGI.unescape(data[FORMAT_STRING % 'LastName'])
+    first_name = CGI.unescape(data[FORMAT_STRING % 'FirstName'].to_s)
+    last_name = CGI.unescape(data[FORMAT_STRING % 'LastName'].to_s)
     self.new(email, first_name, last_name)
   end
 end

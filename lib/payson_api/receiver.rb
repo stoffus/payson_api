@@ -26,7 +26,7 @@ class Receiver
     [].tap do |receivers|
       i = 0
       while data[FORMAT_STRING % [i, 'email']]
-        email = CGI.unescape(data[FORMAT_STRING % [i, 'email']])
+        email = CGI.unescape(data[FORMAT_STRING % [i, 'email']].to_s)
         amount = data[FORMAT_STRING % [i, 'amount']]
         receivers << self.new(email, amount)
         i += 1
