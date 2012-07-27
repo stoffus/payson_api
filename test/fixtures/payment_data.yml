@@ -1,18 +1,24 @@
 :return_url: http://localhost/return
 :cancel_url: http://localhost/cancel
-:ipn_url: 
+:ipn_url: http://localhost/ipn
 :memo: Test
 :receivers:
   -
     :email: mytest@domain.com
     :amount: 123
+    :first_name: Test
+    :last_name: Person 1
+    :primary: true
   -
     :email: mytest2@domain2.com
     :amount: 234
+    :first_name: Test
+    :last_name: Person 2
+    :primary: false
 :sender:
   :email: test_person@anotherdomain.com
   :first_name: Test
-  :last_name: Person
+  :last_name: Receiver
 :order_items:
   -
     :description: 'My order item description'
@@ -26,3 +32,11 @@
     :quantity: 2
     :tax: 10
     :sku: 'MY-ITEM-2'
+:fundings:
+  -
+    :constraint: CREDITCARD
+  -
+    :constraint: BANK
+:fees_payer: EACHRECEIVER
+:guarantee_offered: NO
+:locale: SV
