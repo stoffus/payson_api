@@ -5,7 +5,7 @@ class Client
   def self.initiate_payment(payment_data)
     response_hash = payson_request(
       PAYSON_API_PAY_ACTION,
-      payment_data
+      payment_data.to_hash
     )
     PaysonAPI::Response::Payment.new(response_hash)
   end
@@ -13,7 +13,7 @@ class Client
   def self.get_payment_details(payment_details_data)
     response_hash = payson_request(
       PAYSON_API_PAYMENT_DETAILS_ACTION,
-      payment_details_data
+      payment_details_data.to_hash
     )
     PaysonAPI::Response::PaymentDetails.new(response_hash)
   end
@@ -21,9 +21,17 @@ class Client
   def self.update_payment(payment_update_data)
     response_hash = payson_request(
       PAYSON_API_PAYMENT_DETAILS_ACTION,
-      payment_update_data
+      payment_update_data.to_hash
     )
     PaysonAPI::Response::PaymentUpdate.new(response_hash)
+  end
+
+  def self.validate_ipn(ipn_data)
+    response_hash = payson_request(
+      PAYSON_API_PAYMENT_VALIDATE_ACTION,
+      ipn_data.to_s
+    )
+    PaysonAPI::Response::IPN.new(response_hash)
   end
 
 private
@@ -36,7 +44,7 @@ private
       'PAYSON-SECURITY-PASSWORD' => PaysonAPI.config.api_password,
       'Content-Type' => 'application/x-www-form-urlencoded'
     }
-    response = post(url, data.to_hash, headers)
+    response = post(url, data, headers)
     params_to_hash(response.body)
   end
 
