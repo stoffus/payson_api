@@ -11,7 +11,7 @@ class Funding
     {}.tap do |hash|
       fundings.each_with_index do |funding, index|
         hash.merge!({
-          FORMAT_STRING % [index, 'email'] => funding.constraint
+          FORMAT_STRING % [index, 'constraint'] => funding.constraint
         })
       end
     end
