@@ -111,7 +111,6 @@ You can configure the following default values by overriding these values using 
 This example assumes the use of the Rails web framework.
 
   class Payson < ApplicationController
-
     def ipn_responder
       request_body = request.body.read
       ipn_response = PaysonAPI::Response::IPN.new(request_body)
