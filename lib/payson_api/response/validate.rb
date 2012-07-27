@@ -1,7 +1,7 @@
 module PaysonAPI
 module Response
 class Validate
-  attr_accessor @data
+  attr_accessor :data
 
   def initialize(data)
     @data = data
