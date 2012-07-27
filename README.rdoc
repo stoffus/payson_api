@@ -116,8 +116,8 @@ This example assumes the use of the Rails web framework.
       ipn_response = PaysonAPI::Response::IPN.new(request_body)
 
       # Do business stuff, e.g. update the corresponding order:
-      #   order = Order.find_by_payson_token(ipn.token)
-      #   order.payson_status = ipn.status
+      #   order = Order.find_by_payson_token(ipn_response.token)
+      #   order.payson_status = ipn_response.status
       #   order.save!
 
       # Create a new IPN request object containing the raw response from above
