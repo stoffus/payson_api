@@ -59,7 +59,7 @@ private
     if !FEES_PAYERS.include?(fees_payer)
       raise "Unknown fees payer: #{fees_payer}"
     end
-    hash['feesPayer'] = fees_payer if fees_payer
+    hash['feesPayer'] = fees_payer
   end
 end
 end
