@@ -5,7 +5,7 @@ class Receiver
   FORMAT_STRING = "receiverList.receiver(%d).%s"
   attr_accessor :email, :amount, :first_name, :last_name, :primary
 
-  def initialize(email, amount, first_name, last_name, primary = true)
+  def initialize(email, amount, first_name = nil, last_name = nil, primary = true)
     @email = email
     @amount = amount
     @first_name = first_name
@@ -24,6 +24,12 @@ class Receiver
           FORMAT_STRING % [index, 'lastName'] => receiver.last_name,
           FORMAT_STRING % [index, 'primary'] => receiver.primary
         })
+        if receiver.first_name
+          hash[FORMAT_STRING % [index, 'firstName']] = receiver.first_name
+        end
+        if receiver.last_name
+          hash[FORMAT_STRING % [index, 'lastName']] = receiver.last_name
+        end
       end
     end
   end
