@@ -38,16 +38,13 @@ class Client
   end
 
   def self.hash_to_params(hash)
-    out = ""
-    hash.each { |k, v| out << "#{k}=#{v}&" }
-    out.chop
+    hash.map { |k, v| "#{k}=#{v}" }.join('&')
   end
 
   def self.params_to_hash(params)
     {}.tap do |hash|
-      parts = params.split(/&/)
-      parts.each do |part|
-        key, val = part.split(/=/)
+      params.split('&').each do |param|
+        key, val = param.split('=')
         hash[key] = val
       end
     end
