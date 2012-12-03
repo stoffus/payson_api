@@ -43,9 +43,8 @@ class Client
 
   def self.params_to_hash(params)
     {}.tap do |hash|
-      parts = params.split(/&/)
-      parts.each do |part|
-        key, val = part.split(/=/)
+      params.split('&').each do |param|
+        key, val = param.split('=')
         hash[key] = val
       end
     end
