@@ -38,9 +38,7 @@ class Client
   end
 
   def self.hash_to_params(hash)
-    out = ""
-    hash.each { |k, v| out << "#{k}=#{v}&" }
-    out.chop
+    hash.map { |k, v| "#{k}=#{v}" }.join('&')
   end
 
   def self.params_to_hash(params)
