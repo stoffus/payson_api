@@ -1,10 +1,10 @@
 module PaysonAPI
   extend self
 
-  PAYSON_WWW_HOST = "https://www.payson.se"
+  PAYSON_WWW_HOST = "https://%s.payson.se"
   PAYSON_WWW_PAY_FORWARD_URL = "/paysecure/?token=%s"
 
-  PAYSON_API_ENDPOINT = "https://api.payson.se"
+  PAYSON_API_ENDPOINT = "https://%s.payson.se"
   PAYSON_API_VERSION = "1.0"
   PAYSON_API_PAY_ACTION = "Pay"
   PAYSON_API_PAYMENT_DETAILS_ACTION = "PaymentDetails"
@@ -42,4 +42,9 @@ module PaysonAPI
     config.api_user_id = 'XXXX'
     config.api_password = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
   end
+
+  def test?
+    @config.api_user_id == '1'
+  end
+
 end

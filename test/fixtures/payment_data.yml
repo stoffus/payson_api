@@ -4,33 +4,27 @@
 :memo: Test
 :receivers:
   -
-    :email: mytest@domain.com
+    :email: test-shopper@payson.se
     :amount: 123
     :first_name: Test
-    :last_name: Person 1
+    :last_name: Shopper
     :primary: true
-  -
-    :email: mytest2@domain2.com
-    :amount: 234
-    :first_name: Test
-    :last_name: Person 2
-    :primary: false
 :sender:
-  :email: test_person@anotherdomain.com
+  :email: test-sender@payson.se
   :first_name: Test
-  :last_name: Receiver
+  :last_name: Sender
 :order_items:
   -
     :description: 'My order item description'
-    :unit_price: 1103
+    :unit_price: 1000 * 0.8
     :quantity: 3
-    :tax: 0
+    :tax: 0.25
     :sku: 'MY-ITEM-1'
   -
     :description: 'Another order item description'
-    :unit_price: 242
+    :unit_price: 1500 * 0.8
     :quantity: 2
-    :tax: 10
+    :tax: 0.25
     :sku: 'MY-ITEM-2'
 :fundings:
   -
@@ -40,3 +34,4 @@
 :fees_payer: EACHRECEIVER
 :guarantee_offered: NO
 :locale: SV
+:currency: SEK

@@ -14,7 +14,8 @@ class Payment
   end
 
   def forward_url
-    PAYSON_WWW_HOST + PAYSON_WWW_PAY_FORWARD_URL % @token
+    PAYSON_WWW_HOST % (PaysonAPI.test? ? 'test-www' : 'www') +
+      PAYSON_WWW_PAY_FORWARD_URL % @token
   end
 end
 end

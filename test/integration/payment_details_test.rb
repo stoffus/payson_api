@@ -7,15 +7,15 @@ require 'payson_api'
 class PaymentDetailsTest < Test::Unit::TestCase
   include TestHelper
 
-  def test_generated_hash_from_payment_details
-    token = acquire_token
-
-    if !token
-      puts "Token was not received, please look into your test config"
-      return
-    end
+  def test_payment_details_request
+    token = initiate_payment.token
 
     payment_details = PaysonAPI::Request::PaymentDetails.new(token)
     response = PaysonAPI::Client.get_payment_details(payment_details)
+
+    assert response.success?
+    assert_equal token, response.token
+    assert_equal PAYMENT_DATA[:sender][:email], URI.unescape(response.sender_email)
+    assert_equal PAYMENT_DATA[:currency], response.currency
   end
 end

@@ -7,6 +7,13 @@ require 'payson_api'
 class PaymentTest < Test::Unit::TestCase
   include TestHelper
 
+  def test_payment_initiation
+    response = initiate_payment
+
+    assert response.success?
+    assert response.forward_url =~ /test-www/
+  end
+
   def test_generated_hash_from_payment_data
     setup_payment_hash(include_order_items = true)
 
@@ -53,15 +60,6 @@ class PaymentTest < Test::Unit::TestCase
     @fundings.each_with_index do |funding, index|
       constraint = @payment_hash[funding_format % [index, 'constraint']]
       assert_equal funding.constraint, constraint
-    end
-  end
-
-  def test_payment_initiation_request
-    token = acquire_token
-
-    if !token
-      puts "Token was not received, please look into your test config"
-      return
     end
   end
 end

@@ -61,19 +61,14 @@ module TestHelper
     @payment.fees_payer = PAYMENT_DATA[:fees_payer]
     @payment.locale = PAYMENT_DATA[:locale]
     @payment.guarantee_offered = PAYMENT_DATA[:guarantee_offered]
+    @payment.currency = PAYMENT_DATA[:currency]
 
     @payment_hash = @payment.to_hash
   end
 
-  # Note that for this method to succeed you must configure the tests
-  # with your personal details:
-  #   * The api_user_id/api_password must be valid (in config.yml)
-  #   * The receiver email must be valid for the supplied credentials
-  #       (in payment_data.yml)
-  def acquire_token
+  def initiate_payment
     setup_payment_hash
-    response = PaysonAPI::Client.initiate_payment(@payment_hash)
-    response.token
+    PaysonAPI::Client.initiate_payment(@payment_hash)
   end
 
   def teardown
