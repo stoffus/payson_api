@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'test/unit'
-require 'test_helper'
+require '../test_helper'
 require 'payson_api'
 
 class ConfigTest < Test::Unit::TestCase

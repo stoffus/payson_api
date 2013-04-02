@@ -1,8 +1,8 @@
 require 'yaml'
 
 module TestHelper
-  CONFIG = YAML.load_file('test/fixtures/config.yml')
-  PAYMENT_DATA = YAML.load_file('test/fixtures/payment_data.yml')
+  CONFIG = YAML.load_file(File.dirname(__FILE__) + '/fixtures/config.yml')
+  PAYMENT_DATA = YAML.load_file(File.dirname(__FILE__) + '/fixtures/payment_data.yml')
 
   def setup
     PaysonAPI.configure do |config|
@@ -13,46 +13,46 @@ module TestHelper
 
   def setup_payment_hash(include_order_items = false)
     @sender = PaysonAPI::Sender.new(
-      PAYMENT_DATA[:sender][:email],
-      PAYMENT_DATA[:sender][:first_name],
-      PAYMENT_DATA[:sender][:last_name]
+        PAYMENT_DATA[:sender][:email],
+        PAYMENT_DATA[:sender][:first_name],
+        PAYMENT_DATA[:sender][:last_name]
     )
 
     @receivers = []
     PAYMENT_DATA[:receivers].each do |receiver|
       @receivers << PaysonAPI::Receiver.new(
-        receiver[:email],
-        receiver[:amount],
-        receiver[:first_name],
-        receiver[:last_name],
-        receiver[:primary]
+          receiver[:email],
+          receiver[:amount],
+          receiver[:first_name],
+          receiver[:last_name],
+          receiver[:primary]
       )
     end
 
     @payment = PaysonAPI::Request::Payment.new(
-      PAYMENT_DATA[:return_url],
-      PAYMENT_DATA[:cancel_url],
-      PAYMENT_DATA[:ipn_url],
-      PAYMENT_DATA[:memo],
-      @sender,
-      @receivers
+        PAYMENT_DATA[:return_url],
+        PAYMENT_DATA[:cancel_url],
+        PAYMENT_DATA[:ipn_url],
+        PAYMENT_DATA[:memo],
+        @sender,
+        @receivers
     )
 
     @order_items = []
     PAYMENT_DATA[:order_items].each do |order_item|
       @order_items << PaysonAPI::OrderItem.new(
-        order_item[:description],
-        order_item[:unit_price],
-        order_item[:quantity],
-        order_item[:tax],
-        order_item[:sku]
+          order_item[:description],
+          order_item[:unit_price],
+          order_item[:quantity],
+          order_item[:tax],
+          order_item[:sku]
       )
     end
 
     @fundings = []
     PAYMENT_DATA[:fundings].each do |funding|
       @fundings << PaysonAPI::Funding.new(
-        funding[:constraint]
+          funding[:constraint]
       )
     end
 
