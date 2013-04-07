@@ -1,3 +1,5 @@
+require 'cgi'
+
 module PaysonAPI
 module Response
 class PaymentDetails
