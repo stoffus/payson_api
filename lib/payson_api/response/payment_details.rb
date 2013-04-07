@@ -24,7 +24,7 @@ class PaymentDetails
     case @payment_type
     when 'GUARANTEE'
       @guarantee_status = data['guaranteeStatus']
-      @guarantee_deadline_at = Time.at(data['guaranteeDeadlineTimestamp'])
+      @guarantee_deadline_at = Time.parse(CGI.unescape(data['guaranteeDeadlineTimestamp']))
     when 'INVOICE'
       @invoice_status = data['invoiceStatus']
       if %w[ORDERCREATED SHIPPED DONE CREDITED].include?(@invoice_status)
