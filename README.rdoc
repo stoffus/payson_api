@@ -28,6 +28,8 @@ You need to configure the gem with your own Payson credentials through the <tt>P
     config.api_password = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
   end
 
+Please note that if <tt>config.api_user_id</tt> is set to 1, the client will go into test mode.
+
 === Initiating a payment
 
   return_url = 'http://localhost/payson/success'
@@ -150,4 +152,4 @@ Feel free to message me on Github (stoffus).
 
 == Copyright
 
-Copyright (c) 2012 Christopher Svensson.
+Copyright (c) 2013 Christopher Svensson.
