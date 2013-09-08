@@ -25,7 +25,7 @@ class IPN
     case @payment_type
     when 'GUARANTEE'
       @guarantee_status = data_hash['guaranteeStatus']
-      @guarantee_deadline_at = Time.at(data_hash['guaranteeDeadlineTimestamp'])
+      @guarantee_deadline_at = Time.parse(data_hash['guaranteeDeadlineTimestamp'])
     when 'INVOICE'
       @invoice_status = data_hash['invoiceStatus']
       @shipping_address = ShippingAddress.parse(data_hash)
