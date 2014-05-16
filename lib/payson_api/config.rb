@@ -44,7 +44,7 @@ module PaysonAPI
   end
 
   def test?
-    @config.api_user_id == '1'
+    @config.api_user_id == '4'
   end
 
 end
