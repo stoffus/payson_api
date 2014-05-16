@@ -28,7 +28,7 @@ You need to configure the gem with your own Payson credentials through the <tt>P
     config.api_password = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
   end
 
-Please note that if <tt>config.api_user_id</tt> is set to 1, the client will go into test mode.
+Please note that if <tt>config.api_user_id</tt> is set to 4, the client will go into test mode. Valid test access credentials could be found in {documentation}[https://api.payson.se/#Testing/sandbox].
 
 === Initiating a payment
 
