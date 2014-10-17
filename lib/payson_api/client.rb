@@ -55,7 +55,6 @@ private
   def self.payson_request(action, data)
     action = '/%s/%s/' % [PAYSON_API_VERSION, action]
     url = PAYSON_API_ENDPOINT % (PaysonAPI.test? ? 'test-api' : 'api') + action
-    logger.info url
     headers = {
       'PAYSON-SECURITY-USERID' => PaysonAPI.config.api_user_id,
       'PAYSON-SECURITY-PASSWORD' => PaysonAPI.config.api_password,
