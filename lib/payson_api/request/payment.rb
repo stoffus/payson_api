@@ -13,6 +13,7 @@ class Payment
     @sender = sender
     @receivers = receivers
     @custom = custom
+    
   end
 
   def to_hash
@@ -21,7 +22,6 @@ class Payment
       hash['returnUrl'] = @return_url
       hash['cancelUrl'] = @cancel_url
       hash['memo'] = @memo
-      hash['custom'] = @custom
       hash.merge!(@sender.to_hash)
       hash.merge!(Receiver.to_hash(@receivers))
 
@@ -35,6 +35,7 @@ class Payment
       hash['ipnNotificationUrl'] = @ipn_url if @ipn_url
       hash['invoiceFee'] = @invoice_fee if @invoice_fee
       hash['trackingId'] = @tracking_id if @tracking_id
+      hash['custom'] = @custom if @custom
     end
   end
 
