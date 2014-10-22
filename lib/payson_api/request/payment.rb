@@ -3,15 +3,16 @@ module Request
 class Payment
   attr_accessor :return_url, :cancel_url, :ipn_url, :memo, :sender, :receivers,
     :locale, :currency, :tracking_id, :invoice_fee, :order_items, :fundings,
-    :fees_payer, :guarantee_offered
+    :fees_payer, :guarantee_offered, :custom
 
-  def initialize(return_url, cancel_url, ipn_url, memo, sender, receivers)
+  def initialize(return_url, cancel_url, ipn_url, memo, sender, receivers, custom)
     @return_url = return_url
     @cancel_url = cancel_url
     @ipn_url = ipn_url
     @memo = memo
     @sender = sender
     @receivers = receivers
+    @custom = custom
   end
 
   def to_hash
@@ -33,6 +34,7 @@ class Payment
       hash['ipnNotificationUrl'] = @ipn_url if @ipn_url
       hash['invoiceFee'] = @invoice_fee if @invoice_fee
       hash['trackingId'] = @tracking_id if @tracking_id
+      hash['custom'] = @custom if @custom
     end
   end
 
