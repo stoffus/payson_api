@@ -5,7 +5,7 @@ class Payment
     :locale, :currency, :tracking_id, :invoice_fee, :order_items, :fundings,
     :fees_payer, :guarantee_offered, :custom
 
-  def initialize(return_url, cancel_url, ipn_url, memo, sender, receivers, custom)
+  def initialize(return_url, cancel_url, ipn_url, memo, sender, receivers, custom = nil)
     @return_url = return_url
     @cancel_url = cancel_url
     @ipn_url = ipn_url
