@@ -30,6 +30,8 @@ You need to configure the gem with your own Payson credentials through the <tt>P
 
 Please note that if <tt>config.api_user_id</tt> is set to 4, the client will go into test mode. Valid test access credentials could be found in {documentation}[https://api.payson.se/#Testing/sandbox].
 
+For more detailed testing you may create your own test agent for use in the test environment. Use <tt>config.test_mode = true</tt> 
+
 === Initiating a payment
 
   return_url = 'http://localhost/payson/success'
