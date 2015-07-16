@@ -35,7 +35,7 @@ module PaysonAPI
   end
 
   class Configuration
-    attr_accessor :api_user_id, :api_password
+    attr_accessor :api_user_id, :api_password, :test_mode
   end
 
   configure do |config|
@@ -44,7 +44,7 @@ module PaysonAPI
   end
 
   def test?
-    @config.api_user_id == '4'
+    @config.test_mode || @config.api_user_id == '4'
   end
 
 end
