@@ -122,11 +122,6 @@ This example assumes the use of the Rails web framework.
       request_body = request.body.read
       ipn_response = PaysonAPI::Response::IPN.new(request_body)
 
-      # Do business stuff, e.g. update the corresponding order:
-      #   order = Order.find_by_payson_token(ipn_response.token)
-      #   order.payson_status = ipn_response.status
-      #   order.save!
-
       # Create a new IPN request object containing the raw response from above
       ipn_request = PaysonAPI::Request::IPN.new(ipn_response.raw)
 
@@ -135,6 +130,11 @@ This example assumes the use of the Rails web framework.
       unless validate.verified?
         raise "Something went terribly wrong."
       end
+      
+      # Do business transactions, e.g. update the corresponding order:
+      #   order = Order.find_by_payson_token(ipn_response.token)
+      #   order.payson_status = ipn_response.status
+      #   order.save!
     end
   end
 
