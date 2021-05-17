@@ -4,6 +4,11 @@ require 'json'
 module PaysonAPI
   module V2
     class Client
+      def self.get_account
+        response = payson_request(Net::HTTP::Get, PAYSON_API_RESOURCES[:accounts][:get])
+        PaysonAPI::V2::Models::Account.from_json(JSON.parse(response.body))
+      end
+
       def self.get_checkout(id)
         response = payson_request(Net::HTTP::Get, PAYSON_API_RESOURCES[:checkouts][:get] % id)
         PaysonAPI::V2::Models::Checkout.from_json(JSON.parse(response.body))
