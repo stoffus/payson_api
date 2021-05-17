@@ -38,4 +38,15 @@ class PaymentTest < Test::Unit::TestCase
     assert_equal update_request.description, updated_checkout.description
   end
 
+  def test_create_checkout_with_invalid_currency
+    create_request = prepare_create_checkout_request
+    create_request.order.currency = 'invalid'
+
+    exception = assert_raise PaysonAPI::V2::Exceptions::ValidationException do
+      PaysonAPI::V2::Client.create_checkout(create_request)
+    end
+
+    assert_includes exception.errors.map { |e| e['property'] }, 'Order.Currency'
+  end
+
 end
