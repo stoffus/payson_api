@@ -8,7 +8,7 @@ module PaysonAPI
 
         def to_hash
           {}.tap do |hash|
-            hash['email'] = @email 
+            hash['email'] = @email
             hash['firstName'] = @first_name
             hash['lastName'] = @last_name
             hash['identityNumber'] = @identity_number

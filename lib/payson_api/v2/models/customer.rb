@@ -8,7 +8,7 @@ module PaysonAPI
           :last_name, :phone, :postal_code, :street, :type
 
         def self.from_json(json)
-          self.new.tap do |customer| 
+          self.new.tap do |customer|
             customer.city = json['city']
             customer.country_code = json['countryCode']
             customer.first_name = json['firstName']

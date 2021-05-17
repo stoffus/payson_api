@@ -5,7 +5,7 @@ module PaysonAPI
     module Models
       class Merchant
         attr_accessor :checkout_uri, :confirmation_uri, :partner_id, :notification_uri,
-          :validation_uri, :terms_uri, :integration_info, :reference    
+          :validation_uri, :terms_uri, :integration_info, :reference
 
         def self.from_json(json)
           self.new.tap do |merchant|

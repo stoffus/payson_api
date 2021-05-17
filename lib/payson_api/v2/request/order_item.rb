@@ -14,7 +14,7 @@ module PaysonAPI
             hash['unitPrice'] = @unit_price
             hash['ean'] = @ean unless @ean.nil?
             hash['taxRate'] = @tax_rate unless @tax_rate.nil?
-            hash['reference'] = @reference unless @reference.nil? 
+            hash['reference'] = @reference unless @reference.nil?
             hash['discountRate'] = @discount_rate unless @discount_rate.nil?
             hash['imageUri'] = @image_uri unless @image_uri.nil?
             hash['type'] = @type unless @type.nil?
