@@ -18,5 +18,4 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_development_dependency 'rake', '~> 0'
-  s.add_development_dependency 'guard-test', '~> 0'
 end
