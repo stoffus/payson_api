@@ -1,0 +1,41 @@
+require 'test/unit'
+require_relative '../../helpers/v2/test_helper'
+require_relative '../../../lib/payson_api'
+
+class PaymentTest < Test::Unit::TestCase
+  include TestHelper::V2
+
+  def test_get_checkouts
+    page_size = 13
+    page = 1
+    request = PaysonAPI::V2::Request::ListCheckouts.new(page_size, page)
+
+    checkouts = PaysonAPI::V2::Client.list_checkouts(request)
+
+    assert_equal page_size, checkouts.count
+
+    checkout = PaysonAPI::V2::Client.get_checkout(checkouts[0].id)
+
+    assert_equal checkouts[0].id, checkout.id
+  end
+
+  def test_create_and_update_checkout
+    create_request = prepare_create_checkout_request
+
+    created_checkout = PaysonAPI::V2::Client.create_checkout(create_request)
+
+    assert_equal 'created', created_checkout.status
+    assert_equal create_request.order.items.count, created_checkout.order.items.count
+    assert_equal create_request.order.currency, created_checkout.order.currency
+    assert_equal create_request.description, created_checkout.description
+
+    update_request = prepare_update_checkout_request(created_checkout)
+
+    updated_checkout = PaysonAPI::V2::Client.update_checkout(created_checkout.id, update_request)
+
+    assert_equal update_request.order.items.count, updated_checkout.order.items.count
+    assert_equal update_request.order.currency, updated_checkout.order.currency
+    assert_equal update_request.description, updated_checkout.description
+  end
+
+end

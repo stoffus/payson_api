@@ -1,0 +1,33 @@
+:description: Test Order
+:customer:
+  :city: Test city
+  :email: test-customer@payson.se
+  :first_name: Test
+  :last_name: Customer
+  :zip: '99999'
+  :street: Test street 1
+  identity_number: '4605092222'
+:order:
+  :currency: sek
+  :items:
+    - :name: 'My order item description'
+      :unit_price: 800
+      :quantity: 3
+      :tax: 0.25
+      :sku: 'MY-ITEM-1'
+      :reference: product1
+    - :name: 'Another order item description'
+      :unit_price: 1200
+      :quantity: 2
+      :tax: 0.25
+      :sku: 'MY-ITEM-2'
+      :reference: product2
+:gui:
+  :locale: SV
+  :countries:
+    - SE
+:merchant:
+  :checkout_url: https://www.testagent.se/checkout
+  :confirmation_url: https://www.testagent.se/confirmation
+  :notification_url: https://www.testagent.se/notification
+  :terms_url: https://www.testagent.se/terms
