@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PaysonAPI
   module V2
     extend self

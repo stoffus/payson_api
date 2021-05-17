@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'payson_api/version'
 
 required_files_v1 = %w[
