@@ -39,6 +39,8 @@ required_files_v2 = %w[
   request/create_checkout
   request/update_checkout
   request/list_checkouts
+  exceptions/validation_exception
+  exceptions/unauthorized_exception
 ]
 
 required_files_v1.each do |file|
