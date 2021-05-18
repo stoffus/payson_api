@@ -2,14 +2,14 @@
 
 module PaysonAPI
   module V1
-    module Response
+    module Responses
       class Payment
         attr_accessor :envelope, :token, :errors
 
         def initialize(data)
-          @envelope = Envelope.parse(data)
+          @envelope = PaysonAPI::V1::Envelope.parse(data)
           @token = data['TOKEN']
-          @errors = RemoteError.parse(data)
+          @errors = PaysonAPI::V1::RemoteError.parse(data)
         end
 
         def success?
@@ -17,8 +17,7 @@ module PaysonAPI
         end
 
         def forward_url
-          PAYSON_WWW_HOST % (PaysonAPI::V1.test? ? 'test-www' : 'www') +
-            PAYSON_WWW_PAY_FORWARD_URL % @token
+          PaysonAPI::V1.forward_url(@token)
         end
       end
     end

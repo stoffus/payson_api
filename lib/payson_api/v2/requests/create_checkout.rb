@@ -2,13 +2,13 @@
 
 module PaysonAPI
   module V2
-    module Request
+    module Requests
       class CreateCheckout
         attr_accessor :expiration_time, :description, :customer, :order, :merchant, :gui
 
         def initialize
-          @order = PaysonAPI::V2::Request::Order.new
-          @merchant = PaysonAPI::V2::Request::Merchant.new
+          @order = PaysonAPI::V2::Requests::Order.new
+          @merchant = PaysonAPI::V2::Requests::Merchant.new
         end
 
         def to_hash

@@ -2,21 +2,11 @@
 
 module PaysonAPI
   module V1
-    module Request
+    module Requests
       class Payment
         attr_accessor :return_url, :cancel_url, :ipn_url, :memo, :sender, :receivers,
           :locale, :currency, :tracking_id, :invoice_fee, :order_items, :fundings,
           :fees_payer, :guarantee_offered, :custom
-
-        def initialize(return_url, cancel_url, ipn_url, memo, sender, receivers, custom = nil)
-          @return_url = return_url
-          @cancel_url = cancel_url
-          @ipn_url = ipn_url
-          @memo = memo
-          @sender = sender
-          @receivers = receivers
-          @custom = custom
-        end
 
         def to_hash
           {}.tap do |hash|
@@ -44,25 +34,29 @@ module PaysonAPI
       private
 
         def append_locale(hash, locale)
-          raise "Unknown locale: #{locale}" if !LOCALES.include?(locale)
+          unless LOCALES.include?(locale)
+            raise PaysonAPI::V1::Errors::UnknownCurrencyError(locale = locale)
+          end
           hash['localeCode'] = locale
         end
 
         def append_currency(hash, currency)
-          raise "Unknown currency: #{currency}" if !CURRENCIES.include?(currency)
+          unless PaysonAPI::V1::CURRENCIES.include?(currency)
+            raise PaysonAPI::V1::Errors::UnknownCurrencyError(currency = currency)
+          end
           hash['currencyCode'] = currency
         end
 
         def append_guarantee(hash, guarantee_offered)
-          if !GUARANTEE_OFFERINGS.include?(guarantee_offered)
-            raise "Unknown guarantee offering: #{guarantee_offered}"
+          unless PaysonAPI::V1::GUARANTEE_OFFERINGS.include?(guarantee_offered)
+            raise PaysonAPI::V1::Errors::UnknownGuaranteeOffering(guarantee_offering = guarantee_offered)
           end
           hash['guaranteeOffered'] = guarantee_offered
         end
 
         def append_fees_payer(hash, fees_payer)
-          if !FEES_PAYERS.include?(fees_payer)
-            raise "Unknown fees payer: #{fees_payer}"
+          unless PaysonAPI::V1::FEES_PAYERS.include?(fees_payer)
+            raise PaysonAPI::V1::Errors::UnknownFeesPayer(fees_payer = fees_payer)
           end
           hash['feesPayer'] = fees_payer
         end

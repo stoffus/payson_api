@@ -2,7 +2,7 @@
 
 module PaysonAPI
   module V1
-    module Response
+    module Responses
       class IPN
         attr_accessor :purchase_id, :sender_email, :status,
           :payment_type, :guarantee_status, :guarantee_deadline_at,
@@ -11,7 +11,7 @@ module PaysonAPI
 
         def initialize(raw_data)
           @raw = raw_data
-          data_hash = PaysonAPI::Client.params_to_hash(raw_data)
+          data_hash = PaysonAPI::V1::Client.params_to_hash(raw_data)
           @purchase_id = data_hash['purchaseId']
           @payment_type = data_hash['type']
           @comment = data_hash['custom']
@@ -20,9 +20,9 @@ module PaysonAPI
           @sender_email = data_hash['senderEmail']
           @status = data_hash['status']
           @token = data_hash['token']
-          @fundings = Funding.parse(data_hash)
-          @receivers = Receiver.parse(data_hash)
-          @order_items = OrderItem.parse(data_hash)
+          @fundings = PaysonAPI::V1::Funding.parse(data_hash)
+          @receivers = PaysonAPI::V1::Receiver.parse(data_hash)
+          @order_items = PaysonAPI::V1::OrderItem.parse(data_hash)
           @hash = data_hash['HASH']
 
           case @payment_type
@@ -31,7 +31,7 @@ module PaysonAPI
             @guarantee_deadline_at = Time.parse(data_hash['guaranteeDeadlineTimestamp'])
           when 'INVOICE'
             @invoice_status = data_hash['invoiceStatus']
-            @shipping_address = ShippingAddress.parse(data_hash)
+            @shipping_address = PaysonAPI::V1::ShippingAddress.parse(data_hash)
           end
         end
       end

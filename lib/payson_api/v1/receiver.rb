@@ -8,14 +8,6 @@ module PaysonAPI
       FORMAT_STRING = "receiverList.receiver(%d).%s"
       attr_accessor :email, :amount, :first_name, :last_name, :primary
 
-      def initialize(email, amount, first_name = nil, last_name = nil, primary = true)
-        @email = email
-        @amount = amount
-        @first_name = first_name
-        @last_name = last_name
-        @primary = primary
-      end
-
       def self.to_hash(receivers)
         {}.tap do |hash|
           receivers.each_with_index do |receiver, index|
@@ -41,12 +33,13 @@ module PaysonAPI
         [].tap do |receivers|
           i = 0
           while data[FORMAT_STRING % [i, 'email']]
-            email = CGI.unescape(data[FORMAT_STRING % [i, 'email']].to_s)
-            amount = data[FORMAT_STRING % [i, 'amount']]
-            first_name = CGI.unescape(data[FORMAT_STRING % [i, 'firstName']].to_s)
-            last_name = CGI.unescape(data[FORMAT_STRING % [i, 'lastName']].to_s)
-            primary = data[FORMAT_STRING % [i, 'primary']]
-            receivers << self.new(email, amount, first_name, last_name, primary)
+            receivers << self.new.tap do |r|
+              r.email = CGI.unescape(data[FORMAT_STRING % [i, 'email']].to_s)
+              r.amount = data[FORMAT_STRING % [i, 'amount']]
+              r.first_name = CGI.unescape(data[FORMAT_STRING % [i, 'firstName']].to_s)
+              r.last_name = CGI.unescape(data[FORMAT_STRING % [i, 'lastName']].to_s)
+              r.primary = data[FORMAT_STRING % [i, 'primary']]
+            end
             i += 1
           end
         end

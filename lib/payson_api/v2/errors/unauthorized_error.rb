@@ -2,8 +2,8 @@
 
 module PaysonAPI
   module V2
-    module Exceptions
-      class UnauthorizedException < StandardError
+    module Errors
+      class UnauthorizedError < StandardError
       end
     end
   end

@@ -69,7 +69,7 @@ order_items << PaysonAPI::V1::OrderItem.new(
   sku = 'MY-ITEM-1'
 )
 
-payment = PaysonAPI::V1::Request::Payment.new(
+payment = PaysonAPI::V1::Requests::Payment.new(
   return_url,
   cancel_url,
   ipn_url,
@@ -93,7 +93,7 @@ end
 ```ruby
 token = 'token-received-from-payment-request'
 
-payment_details = PaysonAPI::V1::Request::PaymentDetails.new(token)
+payment_details = PaysonAPI::V1::Requests::PaymentDetails.new(token)
 
 response = PaysonAPI::V1::Client.get_payment_details(payment_details)
 
@@ -110,7 +110,7 @@ end
 token = 'token-received-from-payment-request'
 action = 'CANCELORDER'
 
-payment_update = PaysonAPI::V1::Request::PaymentUpdate.new(token, action)
+payment_update = PaysonAPI::V1::Requests::PaymentUpdate.new(token, action)
 
 response = PaysonAPI::V1::Client.update_payment(payment_update)
 
@@ -129,10 +129,10 @@ This example assumes the use of the Rails web framework.
 class Payson < ApplicationController
   def ipn_responder
     request_body = request.body.read
-    ipn_response = PaysonAPI::V1::Response::IPN.new(request_body)
+    ipn_response = PaysonAPI::V1::Responses::IPN.new(request_body)
 
     # Create a new IPN request object containing the raw response from above
-    ipn_request = PaysonAPI::V1::Request::IPN.new(ipn_response.raw)
+    ipn_request = PaysonAPI::V1::Requests::IPN.new(ipn_response.raw)
 
     validate = PaysonAPI::V1::Client.validate_ipn(ipn_request)
 

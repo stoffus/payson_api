@@ -8,20 +8,20 @@ module PaysonAPI
           :total_price_excluding_tax, :total_price_including_tax, :total_tax_amount,
           :total_credited_amount, :items
 
-        def self.from_json(json)
+        def self.from_hash(hash)
           self.new.tap do |order|
-            order.currency = json['currency']
-            order.total_fee_excluding_tax = json['totalFeeExcludingTax']
-            order.total_fee_including_tax = json['totalFeeIncludingTax']
-            order.total_price_excluding_tax = json['totalPriceIncludingTax']
-            order.total_price_including_tax = json['totalPriceIncludingTax']
-            order.total_tax_amount = json['totalTaxAmount']
-            order.total_credited_amount = json['totalCreditedAmount']
+            order.currency = hash['currency']
+            order.total_fee_excluding_tax = hash['totalFeeExcludingTax']
+            order.total_fee_including_tax = hash['totalFeeIncludingTax']
+            order.total_price_excluding_tax = hash['totalPriceIncludingTax']
+            order.total_price_including_tax = hash['totalPriceIncludingTax']
+            order.total_tax_amount = hash['totalTaxAmount']
+            order.total_credited_amount = hash['totalCreditedAmount']
 
-            if json['items']
+            if hash['items']
               order.items = []
-              json['items'].each do |item|
-                order.items << PaysonAPI::V2::Models::OrderItem.from_json(item)
+              hash['items'].each do |item|
+                order.items << PaysonAPI::V2::Models::OrderItem.from_hash(item)
               end
             end
           end

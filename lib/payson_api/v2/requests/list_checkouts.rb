@@ -2,7 +2,7 @@
 
 module PaysonAPI
   module V2
-    module Request
+    module Requests
       class ListCheckouts
         attr_accessor :page_size, :page
 

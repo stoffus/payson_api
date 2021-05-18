@@ -11,7 +11,7 @@ module PaysonAPI
           payment_data.to_hash
         )
         response_hash = params_to_hash(response.body)
-        PaysonAPI::V1::Response::Payment.new(response_hash)
+        PaysonAPI::V1::Responses::Payment.new(response_hash)
       end
 
       def self.get_payment_details(payment_details_data)
@@ -20,7 +20,7 @@ module PaysonAPI
           payment_details_data.to_hash
         )
         response_hash = params_to_hash(response.body)
-        PaysonAPI::V1::Response::PaymentDetails.new(response_hash)
+        PaysonAPI::V1::Responses::PaymentDetails.new(response_hash)
       end
 
       def self.update_payment(payment_update_data)
@@ -29,7 +29,7 @@ module PaysonAPI
           payment_update_data.to_hash
         )
         response_hash = params_to_hash(response.body)
-        PaysonAPI::V1::Response::PaymentUpdate.new(response_hash)
+        PaysonAPI::V1::Responses::PaymentUpdate.new(response_hash)
       end
 
       def self.validate_ipn(ipn_data)
@@ -37,7 +37,7 @@ module PaysonAPI
           PAYSON_API_PAYMENT_VALIDATE_ACTION,
           ipn_data.to_s
         )
-        PaysonAPI::V1::Response::Validate.new(response.body)
+        PaysonAPI::V1::Responses::Validate.new(response.body)
       end
 
       def self.hash_to_params(hash)

@@ -8,24 +8,24 @@ module PaysonAPI
     class Client
       def self.get_account
         response = payson_request(Net::HTTP::Get, PAYSON_API_RESOURCES[:accounts][:get])
-        PaysonAPI::V2::Models::Account.from_json(JSON.parse(response.body))
+        PaysonAPI::V2::Models::Account.from_hash(JSON.parse(response.body))
       end
 
       def self.get_checkout(id)
         response = payson_request(Net::HTTP::Get, PAYSON_API_RESOURCES[:checkouts][:get] % id)
-        PaysonAPI::V2::Models::Checkout.from_json(JSON.parse(response.body))
+        PaysonAPI::V2::Models::Checkout.from_hash(JSON.parse(response.body))
       end
 
       def self.create_checkout(request)
         response = payson_request(Net::HTTP::Post, PAYSON_API_RESOURCES[:checkouts][:create], request)
         handle_validation_error(response)
-        PaysonAPI::V2::Models::Checkout.from_json(JSON.parse(response.body))
+        PaysonAPI::V2::Models::Checkout.from_hash(JSON.parse(response.body))
       end
 
       def self.update_checkout(id, request)
         response = payson_request(Net::HTTP::Put, PAYSON_API_RESOURCES[:checkouts][:update] % id, request)
         handle_validation_error(response)
-        PaysonAPI::V2::Models::Checkout.from_json(JSON.parse(response.body))
+        PaysonAPI::V2::Models::Checkout.from_hash(JSON.parse(response.body))
       end
 
       def self.list_checkouts(request)
@@ -33,7 +33,7 @@ module PaysonAPI
         response = payson_request(Net::HTTP::Get, path)
         [].tap do |checkouts|
           JSON.parse(response.body)['data'].each do |json|
-            checkouts << PaysonAPI::V2::Models::Checkout.from_json(json)
+            checkouts << PaysonAPI::V2::Models::Checkout.from_hash(json)
           end
         end
       end
@@ -42,7 +42,7 @@ module PaysonAPI
 
       def self.handle_validation_error(response)
         if response.code == '400' || response.code == '500'
-          raise PaysonAPI::V2::Exceptions::ValidationException.new(errors = JSON.parse(response.body)['errors'])
+          raise PaysonAPI::V2::Errors::ValidationError.new(errors = JSON.parse(response.body)['errors'])
         end
       end
 
@@ -55,13 +55,12 @@ module PaysonAPI
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == 'https'
-        # http.set_debug_output($stdout)
         req = method.new(uri.request_uri)
         req.basic_auth PaysonAPI::V2.config.api_user_id, PaysonAPI::V2.config.api_password
-        req.body = request.to_hash.to_json unless request.nil?
+        req.body = JSON.generate(request.to_hash) unless request.nil?
         req['Content-Type'] = 'application/json'
         response = http.request(req)
-        raise PaysonAPI::V2::Exceptions::UnauthorizedException if response.code == '401'
+        raise PaysonAPI::V2::Errors::UnauthorizedError if response.code == '401'
         response
       end
     end

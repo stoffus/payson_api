@@ -8,23 +8,23 @@ module PaysonAPI
           :reference, :tax_rate, :total_price_excluding_tax, :total_price_including_tax,
           :total_tax_amount, :credited_amount, :type, :unit_price, :uri
 
-        def self.from_json(json)
+        def self.from_hash(hash)
           self.new.tap do |item|
-            item.item_id = json['itemId']
-            item.discount_rate = json['discountRate']
-            item.ean = json['ean']
-            item.image_uri = json['imageUri']
-            item.name = json['name']
-            item.quantity = json['quantity']
-            item.reference = json['reference']
-            item.tax_rate = json['taxRate']
-            item.total_price_excluding_tax = json['totalPriceExcludingTax']
-            item.total_price_including_tax = json['totalPriceIncludingTax']
-            item.total_tax_amount = json['totalTaxAmount']
-            item.credited_amount = json['creditedAmount']
-            item.type = json['type']
-            item.unit_price = json['unitPrice']
-            item.uri = json['uri']
+            item.item_id = hash['itemId']
+            item.discount_rate = hash['discountRate']
+            item.ean = hash['ean']
+            item.image_uri = hash['imageUri']
+            item.name = hash['name']
+            item.quantity = hash['quantity']
+            item.reference = hash['reference']
+            item.tax_rate = hash['taxRate']
+            item.total_price_excluding_tax = hash['totalPriceExcludingTax']
+            item.total_price_including_tax = hash['totalPriceIncludingTax']
+            item.total_tax_amount = hash['totalTaxAmount']
+            item.credited_amount = hash['creditedAmount']
+            item.type = hash['type']
+            item.unit_price = hash['unitPrice']
+            item.uri = hash['uri']
           end
         end
       end

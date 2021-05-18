@@ -4,7 +4,7 @@ module PaysonAPI
   module V1
     extend self
 
-    PAYSON_WWW_HOST = "https://%s.payson.se"
+    PAYSON_WWW_HOST_ENDPOINT = "https://www.payson.se"
     PAYSON_WWW_PAY_FORWARD_URL = "/paysecure/?token=%s"
 
     PAYSON_API_ENDPOINT = "https://api.payson.se"
@@ -15,6 +15,7 @@ module PaysonAPI
     PAYSON_API_PAYMENT_VALIDATE_ACTION = "Validate"
 
     PAYSON_API_TEST_ENDPOINT = "https://test-api.payson.se"
+    PAYSON_WWW_HOST_TEST_ENDPOINT = "https://test-www.payson.se"
 
     LOCALES = %w[SV EN FI]
     CURRENCIES = %w[SEK EUR]
@@ -56,5 +57,8 @@ module PaysonAPI
       test? ? PAYSON_API_TEST_ENDPOINT : PAYSON_API_ENDPOINT
     end
 
+    def forward_url(token)
+      (test? ? PAYSON_WWW_HOST_TEST_ENDPOINT : PAYSON_WWW_HOST_ENDPOINT) + PAYSON_WWW_PAY_FORWARD_URL % @token
+    end
   end
 end

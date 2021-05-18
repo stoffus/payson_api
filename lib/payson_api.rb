@@ -6,19 +6,25 @@ required_files_v1 = %w[
   config
   client
   envelope
+  errors/unknown_currency_error
+  errors/unknown_fees_payer_error
+  errors/unknown_funding_constraint_error
+  errors/unknown_guarantee_offering_error
+  errors/unknown_locale_error
+  errors/unknown_payment_action_error
   funding
   order_item
   receiver
   remote_error
-  request/ipn
-  request/payment_details
-  request/payment_update
-  request/payment
-  response/ipn
-  response/payment_details
-  response/payment_update
-  response/payment
-  response/validate
+  requests/ipn
+  requests/payment_details
+  requests/payment_update
+  requests/payment
+  responses/ipn
+  responses/payment_details
+  responses/payment_update
+  responses/payment
+  responses/validate
   sender
   shipping_address
 ]
@@ -26,21 +32,21 @@ required_files_v1 = %w[
 required_files_v2 = %w[
   config
   client
+  errors/validation_error
+  errors/unauthorized_error
   models/account
   models/checkout
   models/customer
   models/merchant
   models/order_item
   models/order
-  request/order_item
-  request/customer
-  request/merchant
-  request/order
-  request/create_checkout
-  request/update_checkout
-  request/list_checkouts
-  exceptions/validation_exception
-  exceptions/unauthorized_exception
+  requests/order_item
+  requests/customer
+  requests/merchant
+  requests/order
+  requests/create_checkout
+  requests/update_checkout
+  requests/list_checkouts
 ]
 
 required_files_v1.each do |file|

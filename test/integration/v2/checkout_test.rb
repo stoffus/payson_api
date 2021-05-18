@@ -10,7 +10,7 @@ class PaymentTest < Test::Unit::TestCase
   def test_get_checkouts
     page_size = 13
     page = 1
-    request = PaysonAPI::V2::Request::ListCheckouts.new(page_size, page)
+    request = PaysonAPI::V2::Requests::ListCheckouts.new(page_size, page)
 
     checkouts = PaysonAPI::V2::Client.list_checkouts(request)
 
@@ -44,7 +44,7 @@ class PaymentTest < Test::Unit::TestCase
     create_request = prepare_create_checkout_request
     create_request.order.currency = 'invalid'
 
-    exception = assert_raise PaysonAPI::V2::Exceptions::ValidationException do
+    exception = assert_raise PaysonAPI::V2::Errors::ValidationError do
       PaysonAPI::V2::Client.create_checkout(create_request)
     end
 

@@ -17,11 +17,11 @@ module TestHelper
     end
 
     def get_random_checkout
-      PaysonAPI::V2::Client.list_checkouts(PaysonAPI::V2::Request::ListCheckouts.new(1, 1)).first
+      PaysonAPI::V2::Client.list_checkouts(PaysonAPI::V2::Requests::ListCheckouts.new(1, 1)).first
     end
 
     def prepare_create_checkout_request
-      request = PaysonAPI::V2::Request::CreateCheckout.new
+      request = PaysonAPI::V2::Requests::CreateCheckout.new
 
       request.merchant.checkout_uri = CREATE_CHECKOUT_DATA[:merchant][:checkout_url]
       request.merchant.confirmation_uri = CREATE_CHECKOUT_DATA[:merchant][:confirmation_url]
@@ -30,7 +30,7 @@ module TestHelper
 
       request.order.currency = CREATE_CHECKOUT_DATA[:order][:currency]
       CREATE_CHECKOUT_DATA[:order][:items].each do |item|
-        request.order.items << PaysonAPI::V2::Request::OrderItem.new.tap do |order_item|
+        request.order.items << PaysonAPI::V2::Requests::OrderItem.new.tap do |order_item|
           order_item.name = item[:name]
           order_item.unit_price = item[:unit_price]
           order_item.quantity = item[:quantity]
@@ -42,7 +42,7 @@ module TestHelper
     end
 
     def prepare_update_checkout_request(checkout)
-      request = PaysonAPI::V2::Request::UpdateCheckout.new
+      request = PaysonAPI::V2::Requests::UpdateCheckout.new
       request.status = checkout.status
       request.id = checkout.id
 
@@ -53,7 +53,7 @@ module TestHelper
 
       request.order.currency = UPDATE_CHECKOUT_DATA[:order][:currency]
       UPDATE_CHECKOUT_DATA[:order][:items].each do |item|
-        request.order.items << PaysonAPI::V2::Request::OrderItem.new.tap do |order_item|
+        request.order.items << PaysonAPI::V2::Requests::OrderItem.new.tap do |order_item|
           order_item.name = item[:name]
           order_item.unit_price = item[:unit_price]
           order_item.quantity = item[:quantity]

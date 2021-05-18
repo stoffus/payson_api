@@ -2,7 +2,7 @@
 
 module PaysonAPI
   module V2
-    module Request
+    module Requests
       class Customer
         attr_accessor :email, :first_name, :last_name, :city, :zip, :street, :identity_number
 

@@ -5,14 +5,14 @@ module PaysonAPI
         attr_accessor :account_email, :status, :merchant_id, :enabled_for_invoice,
           :enabled_for_payment_plan, :enabled_for_recurring_payments
 
-        def self.from_json(json)
+        def self.from_hash(hash)
           self.new.tap do |account|
-            account.account_email = json['accountEmail']
-            account.status = json['status']
-            account.merchant_id = json['merchantId']
-            account.enabled_for_invoice = json['enabledForInvoice']
-            account.enabled_for_payment_plan = json['enabledForpaymentPlan']
-            account.enabled_for_recurring_payments = json['enabledForRecurringPayments']
+            account.account_email = hash['accountEmail']
+            account.status = hash['status']
+            account.merchant_id = hash['merchantId']
+            account.enabled_for_invoice = hash['enabledForInvoice']
+            account.enabled_for_payment_plan = hash['enabledForpaymentPlan']
+            account.enabled_for_recurring_payments = hash['enabledForRecurringPayments']
           end
         end
       end

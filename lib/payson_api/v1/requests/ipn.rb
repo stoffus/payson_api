@@ -2,7 +2,7 @@
 
 module PaysonAPI
   module V1
-    module Request
+    module Requests
       class IPN
         attr_accessor :data
 

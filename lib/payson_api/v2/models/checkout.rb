@@ -7,23 +7,23 @@ module PaysonAPI
         attr_accessor :id, :status, :expiration_time, :description, :snippet,
           :customer, :order, :merchant
 
-        def self.from_json(json)
+        def self.from_hash(hash)
           self.new.tap do |checkout|
-            checkout.id = json['id']
-            checkout.status = json['status']
-            checkout.expiration_time = json['expirationTime']
-            checkout.description = json['description']
-            checkout.snippet = json['snippet']
+            checkout.id = hash['id']
+            checkout.status = hash['status']
+            checkout.expiration_time = hash['expirationTime']
+            checkout.description = hash['description']
+            checkout.snippet = hash['snippet']
 
-            if json['customer']
-              checkout.customer = PaysonAPI::V2::Models::Customer.from_json(json['customer'])
+            if hash['customer']
+              checkout.customer = PaysonAPI::V2::Models::Customer.from_hash(hash['customer'])
             end
 
-            if json['merchant']
-              checkout.merchant = PaysonAPI::V2::Models::Merchant.from_json(json['merchant'])
+            if hash['merchant']
+              checkout.merchant = PaysonAPI::V2::Models::Merchant.from_hash(hash['merchant'])
             end
 
-            checkout.order = PaysonAPI::V2::Models::Order.from_json(json['order'])
+            checkout.order = PaysonAPI::V2::Models::Order.from_hash(hash['order'])
           end
         end
       end

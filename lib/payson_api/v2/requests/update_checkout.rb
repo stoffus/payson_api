@@ -2,13 +2,13 @@
 
 module PaysonAPI
   module V2
-    module Request
+    module Requests
       class UpdateCheckout
         attr_accessor :id, :status, :locale, :currency, :order, :customer, :merchant, :description
 
         def initialize
-          @order = PaysonAPI::V2::Request::Order.new
-          @merchant = PaysonAPI::V2::Request::Merchant.new
+          @order = PaysonAPI::V2::Requests::Order.new
+          @merchant = PaysonAPI::V2::Requests::Merchant.new
         end
 
         def to_hash

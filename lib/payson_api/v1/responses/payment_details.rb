@@ -4,7 +4,7 @@ require 'cgi'
 
 module PaysonAPI
   module V1
-    module Response
+    module Responses
       class PaymentDetails
         attr_accessor :envelope, :purchase_id, :sender_email, :status,
           :payment_type, :guarantee_status, :guarantee_deadline_at,
@@ -12,7 +12,7 @@ module PaysonAPI
           :order_items, :errors, :fundings, :token, :shipping_address
 
         def initialize(data)
-          @envelope = Envelope.parse(data)
+          @envelope = PaysonAPI::V1::Envelope.parse(data)
           @purchase_id = data['purchaseId']
           @payment_type = data['type']
           @comment = data['custom']
@@ -21,10 +21,10 @@ module PaysonAPI
           @sender_email = data['senderEmail']
           @status = data['status']
           @token = data['token']
-          @fundings = Funding.parse(data)
-          @receivers = Receiver.parse(data)
-          @order_items = OrderItem.parse(data)
-          @errors = RemoteError.parse(data)
+          @fundings = PaysonAPI::V1::Funding.parse(data)
+          @receivers = PaysonAPI::V1::Receiver.parse(data)
+          @order_items = PaysonAPI::V1::OrderItem.parse(data)
+          @errors = PaysonAPI::V1::RemoteError.parse(data)
 
           case @payment_type
           when 'GUARANTEE'
@@ -33,7 +33,7 @@ module PaysonAPI
           when 'INVOICE'
             @invoice_status = data['invoiceStatus']
             if %w[ORDERCREATED SHIPPED DONE CREDITED].include?(@invoice_status)
-              @shipping_address = ShippingAddress.parse(data)
+              @shipping_address = PaysonAPI::V1::ShippingAddress.parse(data)
             end
           end
         end

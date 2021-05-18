@@ -2,7 +2,7 @@
 
 module PaysonAPI
   module V2
-    module Request
+    module Requests
       class Order
         attr_accessor :currency, :items
 

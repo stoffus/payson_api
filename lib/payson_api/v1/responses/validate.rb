@@ -2,7 +2,7 @@
 
 module PaysonAPI
   module V1
-    module Response
+    module Responses
       class Validate
         attr_accessor :data
 

@@ -2,13 +2,13 @@
 
 module PaysonAPI
   module V1
-    module Response
+    module Responses
       class PaymentUpdate
         attr_accessor :envelope, :errors
 
         def initialize(data)
-          @envelope = Envelope.parse(data)
-          @errors = RemoteError.parse(data)
+          @envelope = PaysonAPI::V1::Envelope.parse(data)
+          @errors = PaysonAPI::V1::RemoteError.parse(data)
         end
 
         def success?

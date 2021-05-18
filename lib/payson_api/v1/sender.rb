@@ -8,12 +8,6 @@ module PaysonAPI
       FORMAT_STRING = "sender%s"
       attr_accessor :email, :first_name, :last_name
 
-      def initialize(email, first_name, last_name)
-        @email = email
-        @first_name = first_name
-        @last_name = last_name
-      end
-
       def to_hash
         {}.tap do |hash|
           hash[FORMAT_STRING % 'Email'] = @email
@@ -23,10 +17,11 @@ module PaysonAPI
       end
 
       def self.parse(data)
-        email = data[FORMAT_STRING % 'email']
-        first_name = CGI.unescape(data[FORMAT_STRING % 'FirstName'].to_s)
-        last_name = CGI.unescape(data[FORMAT_STRING % 'LastName'].to_s)
-        self.new(email, first_name, last_name)
+        self.new.tap do |s|
+          s.email = data[FORMAT_STRING % 'email']
+          s.first_name = CGI.unescape(data[FORMAT_STRING % 'FirstName'].to_s)
+          s.last_name = CGI.unescape(data[FORMAT_STRING % 'LastName'].to_s)
+        end
       end
     end
   end

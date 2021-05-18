@@ -10,7 +10,7 @@ class PaymentDetailsTest < Test::Unit::TestCase
   def test_payment_details_request
     token = initiate_payment.token
 
-    payment_details = PaysonAPI::V1::Request::PaymentDetails.new(token)
+    payment_details = PaysonAPI::V1::Requests::PaymentDetails.new(token)
     response = PaysonAPI::V1::Client.get_payment_details(payment_details)
 
     assert response.success?

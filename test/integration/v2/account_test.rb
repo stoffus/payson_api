@@ -16,7 +16,7 @@ class PaymentTest < Test::Unit::TestCase
   def test_get_account_with_bad_credentials
     PaysonAPI::V2.config.api_user_id = 'invalid'
 
-    assert_raise PaysonAPI::V2::Exceptions::UnauthorizedException do
+    assert_raise PaysonAPI::V2::Errors::UnauthorizedError do
       PaysonAPI::V2::Client.get_account
     end
   end

@@ -2,7 +2,7 @@
 
 module PaysonAPI
   module V2
-    module Request
+    module Requests
       class OrderItem
         attr_accessor :name, :quantity, :unit_price, :ean, :tax_rate, :reference,
           :discount_rate, :image_uri, :type, :uri

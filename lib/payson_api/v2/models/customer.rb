@@ -7,18 +7,18 @@ module PaysonAPI
         attr_accessor :city, :country_code, :identity_number, :email, :first_name,
           :last_name, :phone, :postal_code, :street, :type
 
-        def self.from_json(json)
+        def self.from_hash(hash)
           self.new.tap do |customer|
-            customer.city = json['city']
-            customer.country_code = json['countryCode']
-            customer.first_name = json['firstName']
-            customer.last_name = json['lastName']
-            customer.identity_number = json['identityNumber']
-            customer.email = json['email']
-            customer.postal_code = json['postalCode']
-            customer.phone = json['phone']
-            customer.street = json['street']
-            customer.type = json['type']
+            customer.city = hash['city']
+            customer.country_code = hash['countryCode']
+            customer.first_name = hash['firstName']
+            customer.last_name = hash['lastName']
+            customer.identity_number = hash['identityNumber']
+            customer.email = hash['email']
+            customer.postal_code = hash['postalCode']
+            customer.phone = hash['phone']
+            customer.street = hash['street']
+            customer.type = hash['type']
           end
         end
       end

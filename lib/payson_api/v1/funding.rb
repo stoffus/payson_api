@@ -6,11 +6,12 @@ module PaysonAPI
       FORMAT_STRING = "fundingList.fundingConstraint(%d).%s"
       attr_accessor :constraint
 
-      def initialize(constraint)
-        if !FUNDING_CONSTRAINTS.include?(constraint)
-          raise "Unknown funding constraint: #{constraint}"
+      def constraint=(value)
+        unless PaysonAPI::V1::FUNDING_CONSTRAINTS.include?(value)
+          raise "Unknown funding constraint: #{value}"
         end
-        @constraint = constraint
+
+        @constraint = value
       end
 
       def self.to_hash(fundings)
@@ -27,8 +28,9 @@ module PaysonAPI
         [].tap do |fundings|
           i = 0
           while data[FORMAT_STRING % [i, 'constraint']]
-            constraint = data[FORMAT_STRING % [i, 'constraint']]
-            fundings << self.new(constraint)
+            fundings << self.new.tap do |f|
+              f.constraint = data[FORMAT_STRING % [i, 'constraint']]
+            end
             i += 1
           end
         end

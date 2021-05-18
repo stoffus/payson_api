@@ -8,14 +8,6 @@ module PaysonAPI
       FORMAT_STRING = "shippingAddress.%s"
       attr_accessor :name, :street_address, :postal_code, :city, :country
 
-      def initialize(name, street_address, postal_code, city, country)
-        @name = name
-        @street_address = street_address
-        @postal_code = postal_code
-        @city = city
-        @country = country
-      end
-
       def to_hash
         {}.tap do |hash|
           hash[FORMAT_STRING % 'name'] = @name
@@ -28,12 +20,13 @@ module PaysonAPI
 
       def self.parse(data)
         return unless data[FORMAT_STRING % 'name']
-        name = CGI.unescape(data[FORMAT_STRING % 'name'].to_s)
-        street_address = CGI.unescape(data[FORMAT_STRING % 'streetAddress'].to_s)
-        postal_code = CGI.unescape(data[FORMAT_STRING % 'postalCode'].to_s)
-        city = CGI.unescape(data[FORMAT_STRING % 'city'].to_s)
-        country = CGI.unescape(data[FORMAT_STRING % 'country'].to_s)
-        self.new(name, street_address, postal_code, city, country)
+        self.new.tap do |s|
+          s.name = CGI.unescape(data[FORMAT_STRING % 'name'].to_s)
+          s.street_address = CGI.unescape(data[FORMAT_STRING % 'streetAddress'].to_s)
+          s.postal_code = CGI.unescape(data[FORMAT_STRING % 'postalCode'].to_s)
+          s.city = CGI.unescape(data[FORMAT_STRING % 'city'].to_s)
+          s.country = CGI.unescape(data[FORMAT_STRING % 'country'].to_s)
+        end
       end
     end
   end
