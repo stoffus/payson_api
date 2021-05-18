@@ -5,7 +5,7 @@ require 'cgi'
 module PaysonAPI
   module V1
     class ShippingAddress
-      FORMAT_STRING = "shippingAddress.%s"
+      FORMAT_STRING = 'shippingAddress.%s'
       attr_accessor :name, :street_address, :postal_code, :city, :country
 
       def to_hash
@@ -20,7 +20,8 @@ module PaysonAPI
 
       def self.parse(data)
         return unless data[FORMAT_STRING % 'name']
-        self.new.tap do |s|
+
+        new.tap do |s|
           s.name = CGI.unescape(data[FORMAT_STRING % 'name'].to_s)
           s.street_address = CGI.unescape(data[FORMAT_STRING % 'streetAddress'].to_s)
           s.postal_code = CGI.unescape(data[FORMAT_STRING % 'postalCode'].to_s)

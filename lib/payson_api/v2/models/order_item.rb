@@ -5,11 +5,11 @@ module PaysonAPI
     module Models
       class OrderItem
         attr_accessor :item_id, :discount_rate, :ean, :image_uri, :name, :quantity,
-          :reference, :tax_rate, :total_price_excluding_tax, :total_price_including_tax,
-          :total_tax_amount, :credited_amount, :type, :unit_price, :uri
+                      :reference, :tax_rate, :total_price_excluding_tax, :total_price_including_tax,
+                      :total_tax_amount, :credited_amount, :type, :unit_price, :uri
 
         def self.from_hash(hash)
-          self.new.tap do |item|
+          new.tap do |item|
             item.item_id = hash['itemId']
             item.discount_rate = hash['discountRate']
             item.ean = hash['ean']

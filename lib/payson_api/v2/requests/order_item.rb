@@ -5,9 +5,9 @@ module PaysonAPI
     module Requests
       class OrderItem
         attr_accessor :name, :quantity, :unit_price, :ean, :tax_rate, :reference,
-          :discount_rate, :image_uri, :type, :uri
+                      :discount_rate, :image_uri, :type, :uri
 
-        def to_hash
+        def to_hash # rubocop:disable Metrics/CyclomaticComplexity
           {}.tap do |hash|
             hash['name'] = @name
             hash['quantity'] = @quantity

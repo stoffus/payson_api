@@ -4,24 +4,24 @@ require 'yaml'
 
 module TestHelper
   module V2
-    CONFIG = YAML.load_file('test/fixtures/v2/config.yml')
-    CREATE_CHECKOUT_DATA = YAML.load_file('test/fixtures/v2/create_checkout_data.yml')
-    UPDATE_CHECKOUT_DATA = YAML.load_file('test/fixtures/v2/update_checkout_data.yml')
+    CONFIG = ::YAML.load_file('test/fixtures/v2/config.yml')
+    CREATE_CHECKOUT_DATA = ::YAML.load_file('test/fixtures/v2/create_checkout_data.yml')
+    UPDATE_CHECKOUT_DATA = ::YAML.load_file('test/fixtures/v2/update_checkout_data.yml')
 
     def setup
-      PaysonAPI::V2.configure do |config|
+      ::PaysonAPI::V2.configure do |config|
         config.api_user_id = CONFIG[:api_user_id]
         config.api_password = CONFIG[:api_password]
         config.test_mode = true
       end
     end
 
-    def get_random_checkout
-      PaysonAPI::V2::Client.list_checkouts(PaysonAPI::V2::Requests::ListCheckouts.new(1, 1)).first
+    def fetch_random_checkout
+      ::PaysonAPI::V2::Client.list_checkouts(::PaysonAPI::V2::Requests::ListCheckouts.new(1, 1)).first
     end
 
     def prepare_create_checkout_request
-      request = PaysonAPI::V2::Requests::CreateCheckout.new
+      request = ::PaysonAPI::V2::Requests::CreateCheckout.new
 
       request.merchant.checkout_uri = CREATE_CHECKOUT_DATA[:merchant][:checkout_url]
       request.merchant.confirmation_uri = CREATE_CHECKOUT_DATA[:merchant][:confirmation_url]
@@ -64,7 +64,6 @@ module TestHelper
       request
     end
 
-    def teardown
-    end
+    def teardown; end
   end
 end

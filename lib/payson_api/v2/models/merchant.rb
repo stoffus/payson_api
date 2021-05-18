@@ -5,10 +5,10 @@ module PaysonAPI
     module Models
       class Merchant
         attr_accessor :checkout_uri, :confirmation_uri, :partner_id, :notification_uri,
-          :validation_uri, :terms_uri, :integration_info, :reference
+                      :validation_uri, :terms_uri, :integration_info, :reference
 
         def self.from_hash(hash)
-          self.new.tap do |merchant|
+          new.tap do |merchant|
             merchant.checkout_uri = hash['checkoutUri']
             merchant.confirmation_uri = hash['confirmationUri']
             merchant.validation_uri = hash['validationUri']

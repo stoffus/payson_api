@@ -5,10 +5,10 @@ module PaysonAPI
     module Models
       class Customer
         attr_accessor :city, :country_code, :identity_number, :email, :first_name,
-          :last_name, :phone, :postal_code, :street, :type
+                      :last_name, :phone, :postal_code, :street, :type
 
         def self.from_hash(hash)
-          self.new.tap do |customer|
+          new.tap do |customer|
             customer.city = hash['city']
             customer.country_code = hash['countryCode']
             customer.first_name = hash['firstName']

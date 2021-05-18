@@ -5,7 +5,7 @@ module PaysonAPI
     module Requests
       class Merchant
         attr_accessor :checkout_uri, :notification_uri, :terms_uri, :confirmation_uri,
-          :partner_id, :validation_uri, :integration_info, :reference
+                      :partner_id, :validation_uri, :integration_info, :reference
 
         def to_hash
           {}.tap do |hash|

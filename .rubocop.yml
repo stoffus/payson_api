@@ -1,0 +1,17 @@
+AllCops:
+  NewCops: disable
+
+Style/Documentation:
+  Enabled: false
+
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: same_line
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 50
+
+Metrics/AbcSize:
+  Max: 100

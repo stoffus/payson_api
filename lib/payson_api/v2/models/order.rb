@@ -5,11 +5,11 @@ module PaysonAPI
     module Models
       class Order
         attr_accessor :currency, :total_fee_excluding_tax, :total_fee_including_tax,
-          :total_price_excluding_tax, :total_price_including_tax, :total_tax_amount,
-          :total_credited_amount, :items
+                      :total_price_excluding_tax, :total_price_including_tax, :total_tax_amount,
+                      :total_credited_amount, :items
 
         def self.from_hash(hash)
-          self.new.tap do |order|
+          new.tap do |order|
             order.currency = hash['currency']
             order.total_fee_excluding_tax = hash['totalFeeExcludingTax']
             order.total_fee_including_tax = hash['totalFeeIncludingTax']

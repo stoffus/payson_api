@@ -6,7 +6,8 @@ module PaysonAPI
   module V1
     class RemoteError
       attr_accessor :id, :message, :parameter
-      FORMAT_STRING = "errorList.error(%d).%s"
+
+      FORMAT_STRING = 'errorList.error(%d).%s'
 
       def initialize(id, message, parameter)
         @id = id
@@ -17,11 +18,11 @@ module PaysonAPI
       def self.parse(data)
         [].tap do |errors|
           i = 0
-          while data[FORMAT_STRING % [i, 'errorId']]
-            id = data[FORMAT_STRING % [i, 'errorId']]
-            message = CGI.unescape(data[FORMAT_STRING % [i, 'message']])
-            parameter = CGI.unescape(data[FORMAT_STRING % [i, 'parameter']])
-            errors << self.new(id, message, parameter)
+          while data[format(FORMAT_STRING, i, 'errorId')]
+            id = data[format(FORMAT_STRING, i, 'errorId')]
+            message = CGI.unescape(data[format(FORMAT_STRING, i, 'message')])
+            parameter = CGI.unescape(data[format(FORMAT_STRING, i, 'parameter')])
+            errors << new(id, message, parameter)
             i += 1
           end
         end

@@ -7,9 +7,9 @@ module PaysonAPI
     module Responses
       class PaymentDetails
         attr_accessor :envelope, :purchase_id, :sender_email, :status,
-          :payment_type, :guarantee_status, :guarantee_deadline_at,
-          :invoice_status, :custom, :tracking_id, :receivers, :currency,
-          :order_items, :errors, :fundings, :token, :shipping_address
+                      :payment_type, :guarantee_status, :guarantee_deadline_at,
+                      :invoice_status, :custom, :tracking_id, :receivers, :currency,
+                      :order_items, :errors, :fundings, :token, :shipping_address
 
         def initialize(data)
           @envelope = PaysonAPI::V1::Envelope.parse(data)

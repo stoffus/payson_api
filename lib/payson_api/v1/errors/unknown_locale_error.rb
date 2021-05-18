@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module PaysonAPI
   module V1
     module Errors
       class UnknownLocaleError < StandardError
-        def initialize(msg, locale)
+        def initialize(_msg, locale)
           super("Unknown locale: #{locale}")
         end
       end

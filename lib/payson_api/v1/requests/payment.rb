@@ -5,10 +5,10 @@ module PaysonAPI
     module Requests
       class Payment
         attr_accessor :return_url, :cancel_url, :ipn_url, :memo, :sender, :receivers,
-          :locale, :currency, :tracking_id, :invoice_fee, :order_items, :fundings,
-          :fees_payer, :guarantee_offered, :custom
+                      :locale, :currency, :tracking_id, :invoice_fee, :order_items, :fundings,
+                      :fees_payer, :guarantee_offered, :custom
 
-        def to_hash
+        def to_hash # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           {}.tap do |hash|
             # Append mandatory params
             hash['returnUrl'] = @return_url
@@ -31,33 +31,35 @@ module PaysonAPI
           end
         end
 
-      private
+        private
 
         def append_locale(hash, locale)
-          unless LOCALES.include?(locale)
-            raise PaysonAPI::V1::Errors::UnknownCurrencyError(locale = locale)
-          end
+          raise PaysonAPI::V1::Errors::UnknownCurrencyError(locale) unless LOCALES.include?(locale)
+
           hash['localeCode'] = locale
         end
 
         def append_currency(hash, currency)
           unless PaysonAPI::V1::CURRENCIES.include?(currency)
-            raise PaysonAPI::V1::Errors::UnknownCurrencyError(currency = currency)
+            raise PaysonAPI::V1::Errors::UnknownCurrencyError(currency)
           end
+
           hash['currencyCode'] = currency
         end
 
         def append_guarantee(hash, guarantee_offered)
           unless PaysonAPI::V1::GUARANTEE_OFFERINGS.include?(guarantee_offered)
-            raise PaysonAPI::V1::Errors::UnknownGuaranteeOffering(guarantee_offering = guarantee_offered)
+            raise PaysonAPI::V1::Errors::UnknownGuaranteeOffering(guarantee_offered)
           end
+
           hash['guaranteeOffered'] = guarantee_offered
         end
 
         def append_fees_payer(hash, fees_payer)
           unless PaysonAPI::V1::FEES_PAYERS.include?(fees_payer)
-            raise PaysonAPI::V1::Errors::UnknownFeesPayer(fees_payer = fees_payer)
+            raise PaysonAPI::V1::Errors::UnknownFeesPayer(fees_payer)
           end
+
           hash['feesPayer'] = fees_payer
         end
       end

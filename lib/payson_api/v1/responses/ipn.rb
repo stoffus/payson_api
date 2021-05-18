@@ -5,9 +5,9 @@ module PaysonAPI
     module Responses
       class IPN
         attr_accessor :purchase_id, :sender_email, :status,
-          :payment_type, :guarantee_status, :guarantee_deadline_at,
-          :invoice_status, :custom, :tracking_id, :receivers, :currency,
-          :order_items, :fundings, :token, :shipping_address, :raw, :hash
+                      :payment_type, :guarantee_status, :guarantee_deadline_at,
+                      :invoice_status, :custom, :tracking_id, :receivers, :currency,
+                      :order_items, :fundings, :token, :shipping_address, :raw, :hash
 
         def initialize(raw_data)
           @raw = raw_data

@@ -6,7 +6,7 @@ require 'json'
 module PaysonAPI
   module V2
     class Client
-      def self.get_account_info
+      def self.account_info
         response = payson_request(Net::HTTP::Get, PAYSON_API_RESOURCES[:accounts][:get])
         PaysonAPI::V2::Models::Account.from_hash(JSON.parse(response.body))
       end
@@ -38,11 +38,9 @@ module PaysonAPI
         end
       end
 
-    private
-
       def self.handle_validation_error(response)
-        if response.code == '400' || response.code == '500'
-          raise PaysonAPI::V2::Errors::ValidationError.new(errors = JSON.parse(response.body)['errors'])
+        if response.code == '400' || response.code == '500' # rubocop:disable Style/GuardClause
+          raise PaysonAPI::V2::Errors::ValidationError, errors: JSON.parse(response.body)['errors']
         end
       end
 
@@ -61,6 +59,7 @@ module PaysonAPI
         req['Content-Type'] = 'application/json'
         response = http.request(req)
         raise PaysonAPI::V2::Errors::UnauthorizedError if response.code == '401'
+
         response
       end
     end

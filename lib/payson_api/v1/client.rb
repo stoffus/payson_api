@@ -53,10 +53,8 @@ module PaysonAPI
         end
       end
 
-    private
-
       def self.payson_request(action, data)
-        path = '/%s/%s/' % [PAYSON_API_VERSION, action]
+        path = format('/%<api_version>s/%<action>s/', api_version: PAYSON_API_VERSION, action: action)
         url = PaysonAPI::V1.api_base_url + path
         headers = {
           'PAYSON-SECURITY-USERID' => PaysonAPI::V1.config.api_user_id,
