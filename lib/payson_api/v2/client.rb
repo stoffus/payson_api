@@ -6,7 +6,7 @@ require 'json'
 module PaysonAPI
   module V2
     class Client
-      def self.get_account
+      def self.get_account_info
         response = payson_request(Net::HTTP::Get, PAYSON_API_RESOURCES[:accounts][:get])
         PaysonAPI::V2::Models::Account.from_hash(JSON.parse(response.body))
       end

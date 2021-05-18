@@ -18,13 +18,84 @@ Then bundle:
 
     $ bundle
 
-## Usage (v1)
+## Usage (v2)
 
-This explains how to use the Payson 1.0 API (https://tech.payson.se/paysoncheckout1). Documentation for the v2 API will be added soon.
+This explains how to use this gem with the [Payson Checkout v2 API](https://tech.payson.se/paysoncheckout2).
 
 ### General configuration options
 
-You need to configure the gem with your own Payson credentials through the <tt>PaysonAPI.configure</tt> method:
+You need to configure the gem with your own Payson credentials through the `PaysonAPI::V2.configure` method:
+
+```ruby
+PaysonAPI::V2.configure do |config|
+  config.api_user_id = 'XXXX'
+  config.api_password = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
+end
+```
+
+Please note that if `config.api_user_id` is set to 4, the client will go into test mode. Valid test access credentials could be found in their [documentation](https://tech.payson.se/#Testing/sandbox).
+
+For more detailed testing you may create your own test agent for use in the test environment. Use `config.test_mode = true`
+
+### Showing account info
+
+```ruby
+account = PaysonAPI::V2::Client.get_account
+```
+
+### Creating a checkout
+
+```ruby
+request = PaysonAPI::V2::Requests::CreateCheckout.new
+request.merchant.checkout_uri = 'http://localhost/checkout'
+request.merchant.confirmation_uri = 'http://localhost/confirmation'
+request.merchant.notification_uri = 'http://localhost/notification'
+request.merchant.terms_uri = 'http://localhost/terms'
+request.order.currency = 'sek'
+request.order.items << PaysonAPI::V2::Requests::OrderItem.new.tap do |item|
+  item.name = 'My product name'
+  item.unit_price = 1000
+  item.quantity = 3
+  item.reference = 'product-1'
+end
+```
+
+### Updating a checkout
+
+```ruby
+checkout = PaysonAPI::V2::Client.get_checkout(checkout_id)
+
+request = PaysonAPI::V2::Requests::UpdateCheckout.new
+request.id = checkout.id
+request.status = checkout.status
+request.merchant.checkout_uri = checkout.merchant.checkout_uri
+request.merchant.confirmation_uri = checkout.merchant.confirmation_uri
+request.merchant.notification_uri = checkout.merchant.notification_uri
+request.merchant.terms_uri = checkout.merchant.terms_uri
+request.order.currency = 'eur'
+request.order.items << PaysonAPI::V2::Requests::OrderItem.new.tap do |item|
+  item.name = 'My product name'
+  item.unit_price = 200
+  item.quantity = 3
+  item.reference = 'product-1'
+end
+request.order.items << PaysonAPI::V2::Requests::OrderItem.new.tap do |item|
+  item.name = 'Another product name'
+  item.unit_price = 600
+  item.quantity = 1
+  item.reference = 'product-2'
+end
+
+checkout = PaysonAPI::V2::Client.update_checkout(checkout_id, request)
+```
+
+## Usage (v1)
+
+This explains how to use the [Payson 1.0 API](https://tech.payson.se/paysoncheckout1).
+
+### General configuration options
+
+You need to configure the gem with your own Payson credentials through the `PaysonAPI::V1.configure` method:
 
 ```ruby
 PaysonAPI::V1.configure do |config|
@@ -40,44 +111,36 @@ For more detailed testing you may create your own test agent for use in the test
 ### Initiating a payment
 
 ```ruby
-return_url = 'http://localhost/payson/success'
-cancel_url = 'http://localhost/payson/cancel'
-ipn_url = 'http://localhost/payson/ipn'
-memo = 'Sample order description'
+payment = PaysonAPI::V1::Requests::Payment.new
+payment.return_url = 'http://localhost/payson/success'
+payment.cancel_url = 'http://localhost/payson/cancel'
+payment.ipn_url = 'http://localhost/payson/ipn'
+payment.memo = 'Sample order description'
+payment.sender = sender
 
-receivers = []
-receivers << PaysonAPI::V1::Receiver.new(
-  email = 'me@mydomain.com',
-  amount = 100,
-  first_name = 'Me',
-  last_name = 'Just me',
-  primary = true
-)
+payment.sender = PaysonAPI::V1::Sender.new.tap do |s|
+  s.email = 'mycustomer@mydomain.com'
+  s.first_name = 'My'
+  s.last_name = 'Customer'
+end
 
-sender = PaysonAPI::V1::Sender.new(
-  email = 'mycustomer@mydomain.com',
-  first_name = 'My',
-  last_name = 'Customer'
-)
+payment.receivers = []
+payment.receivers << PaysonAPI::V1::Receiver.new.tap do |r|
+  r.email = 'me@mydomain.com'
+  r.amount = 100
+  r.first_name = 'Me'
+  r.last_name = 'Just me'
+  r.primary = true
+end
 
-order_items = []
-order_items << PaysonAPI::V1::OrderItem.new(
-  description = 'Order item description',
-  unit_price = 100,
-  quantity = 1,
-  tax = 0,
-  sku = 'MY-ITEM-1'
-)
-
-payment = PaysonAPI::V1::Requests::Payment.new(
-  return_url,
-  cancel_url,
-  ipn_url,
-  memo,
-  sender,
-  receivers
-)
-payment.order_items = order_items
+payment.order_items = []
+payment.order_items << PaysonAPI::V1::OrderItem.new.tap do |i|
+  i.description = 'Order item description'
+  i.unit_price = 100
+  i.quantity = 1
+  i.tax = 0
+  i.sku = 'MY-ITEM-1'
+end
 
 response = PaysonAPI::V1::Client.initiate_payment(payment)
 
