@@ -25,7 +25,10 @@ module PaysonAPI
           @receivers = PaysonAPI::V1::Receiver.parse(data)
           @order_items = PaysonAPI::V1::OrderItem.parse(data)
           @errors = PaysonAPI::V1::RemoteError.parse(data)
+          append_payment_type_conditionals
+        end
 
+        def append_payment_type_conditionals
           case @payment_type
           when 'GUARANTEE'
             @guarantee_status = data['guaranteeStatus']

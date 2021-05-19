@@ -86,7 +86,7 @@ request.order.items << PaysonAPI::V2::Requests::OrderItem.new.tap do |item|
   item.reference = 'product-2'
 end
 
-checkout = PaysonAPI::V2::Client.update_checkout(checkout_id, request)
+checkout = PaysonAPI::V2::Client.update_checkout(request)
 ```
 
 ## Usage (v1)

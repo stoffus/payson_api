@@ -24,7 +24,10 @@ module PaysonAPI
           @receivers = PaysonAPI::V1::Receiver.parse(data_hash)
           @order_items = PaysonAPI::V1::OrderItem.parse(data_hash)
           @hash = data_hash['HASH']
+          append_payment_type_conditionals
+        end
 
+        def append_payment_type_conditionals
           case @payment_type
           when 'GUARANTEE'
             @guarantee_status = data_hash['guaranteeStatus']

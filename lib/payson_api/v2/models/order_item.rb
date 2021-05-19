@@ -8,7 +8,7 @@ module PaysonAPI
                       :reference, :tax_rate, :total_price_excluding_tax, :total_price_including_tax,
                       :total_tax_amount, :credited_amount, :type, :unit_price, :uri
 
-        def self.from_hash(hash)
+        def self.from_hash(hash) # rubocop:disable Metrics/AbcSize
           new.tap do |item|
             item.item_id = hash['itemId']
             item.discount_rate = hash['discountRate']

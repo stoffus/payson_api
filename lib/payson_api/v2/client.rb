@@ -22,8 +22,8 @@ module PaysonAPI
         PaysonAPI::V2::Models::Checkout.from_hash(JSON.parse(response.body))
       end
 
-      def self.update_checkout(id, request)
-        response = payson_request(Net::HTTP::Put, PAYSON_API_RESOURCES[:checkouts][:update] % id, request)
+      def self.update_checkout(request)
+        response = payson_request(Net::HTTP::Put, PAYSON_API_RESOURCES[:checkouts][:update] % request.id, request)
         handle_validation_error(response)
         PaysonAPI::V2::Models::Checkout.from_hash(JSON.parse(response.body))
       end
