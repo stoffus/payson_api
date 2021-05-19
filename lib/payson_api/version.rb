@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PaysonAPI
-  VERSION = '0.4.2'
+  VERSION = '1.0.0'
 end
