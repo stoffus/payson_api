@@ -1,6 +1,6 @@
 # Payson API
 
-A simple utility to handle requests against the Payson payment gateway API.
+A zero dependency, pure Ruby utility to handle requests against the Payson payment gateway API.
 
 ## Supported Ruby versions
 
@@ -8,7 +8,7 @@ A simple utility to handle requests against the Payson payment gateway API.
 * 2.7
 * 3.0
 
-## Install
+## Installation
 
 Put this line in your Gemfile:
 
@@ -58,6 +58,10 @@ request.order.items << PaysonAPI::V2::Requests::OrderItem.new.tap do |item|
   item.quantity = 3
   item.reference = 'product-1'
 end
+
+checkout = PaysonAPI::V2::Client.create_checkout(request)
+
+# Continue by rendering the HTML from checkout.snippet.
 ```
 
 ### Updating a checkout
@@ -116,8 +120,6 @@ payment.return_url = 'http://localhost/payson/success'
 payment.cancel_url = 'http://localhost/payson/cancel'
 payment.ipn_url = 'http://localhost/payson/ipn'
 payment.memo = 'Sample order description'
-payment.sender = sender
-
 payment.sender = PaysonAPI::V1::Sender.new.tap do |s|
   s.email = 'mycustomer@mydomain.com'
   s.first_name = 'My'
@@ -197,10 +199,10 @@ class Payson < ApplicationController
     # Create a new IPN request object containing the raw response from above
     ipn_request = PaysonAPI::V1::Requests::IPN.new(ipn_response.raw)
 
-    validate = PaysonAPI::V1::Client.validate_ipn(ipn_request)
+    validation = PaysonAPI::V1::Client.validate_ipn(ipn_request)
 
-    unless validate.verified?
-      raise "Something went terribly wrong."
+    unless validation.verified?
+      raise "Something went terribly wrong"
     end
 
     # Do business transactions, e.g. update the corresponding order:
@@ -213,15 +215,15 @@ end
 
 ## Todo
 
-Document the code for the Payson Checkout v2 processes.
+Nothing at the moment.
 
-## Build Status
+## Project Status
 
-[![Build Status](https://travis-ci.org/stoffus/payson_api.svg?branch=master)](https://travis-ci.org/stoffus/payson_api)
+[![Build Status](https://travis-ci.org/stoffus/payson_api.svg?branch=master)](https://travis-ci.org/stoffus/payson_api) [![Gem Version](https://badge.fury.io/rb/payson_api.svg)](https://badge.fury.io/rb/payson_api)
 
 ## Questions, Feedback
 
-Feel free to message me on Github (stoffus).
+Feel free to message me on [GitHub](https://github.com/stoffus).
 
 ## Copyright
 
