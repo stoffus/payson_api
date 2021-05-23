@@ -18,13 +18,13 @@ module PaysonAPI
 
       def self.create_checkout(request)
         response = payson_request(Net::HTTP::Post, PAYSON_API_RESOURCES[:checkouts][:create], request)
-        handle_validation_error(response)
+        intercept_validation_errors(response)
         PaysonAPI::V2::Models::Checkout.from_hash(JSON.parse(response.body))
       end
 
       def self.update_checkout(request)
         response = payson_request(Net::HTTP::Put, PAYSON_API_RESOURCES[:checkouts][:update] % request.id, request)
-        handle_validation_error(response)
+        intercept_validation_errors(response)
         PaysonAPI::V2::Models::Checkout.from_hash(JSON.parse(response.body))
       end
 
@@ -38,7 +38,7 @@ module PaysonAPI
         end
       end
 
-      def self.handle_validation_error(response)
+      def self.intercept_validation_errors(response)
         if response.code == '400' || response.code == '500' # rubocop:disable Style/GuardClause
           raise PaysonAPI::V2::Errors::ValidationError, errors: JSON.parse(response.body)['errors']
         end
@@ -62,6 +62,8 @@ module PaysonAPI
 
         response
       end
+
+      private_class_method :intercept_validation_errors, :hash_to_params, :payson_request
     end
   end
 end
